@@ -44,7 +44,9 @@ body {
   }
 
   .button {
-    padding: 5px 15px;
+    display: inline-block;
+    float: left;
+    padding: 8px 20px;
     font: 12px/1 Verdana;
     border-radius: 3px;
     color: #30aeef;
@@ -54,6 +56,48 @@ body {
       border: 1px solid #0199f5;
       color: #fff;
       background: #0199f5;
+    }
+
+    &.grey {
+      background: #dedede;
+      border: 1px solid #ccc;
+      color: #444;
+    }
+
+    &.red {
+      background: #f44336;
+      border: 1px solid #f44336;
+      color: #fff;
+    }
+  }
+
+  #modal-overlays {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+
+    & > .ember-modal-wrapper {
+      & > .ember-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .4);
+        overflow: hidden;
+
+        & > .ember-modal-dialog {
+          width: 100%;
+          max-width: 800px;
+          height: 100%;
+          padding: 50px 0;
+          margin: 0 auto !important;
+          text-align: center;
+          box-sizing: border-box;
+        }
+      }
     }
   }
 }
@@ -163,10 +207,11 @@ body {
         }
       }
     }
-
-    @import 'index';
-    @import 'players';
   }
 }
 
+@import 'components';
 @import 'login';
+@import 'index';
+@import 'teams';
+@import 'players';

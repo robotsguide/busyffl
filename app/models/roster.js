@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import { Model } from 'ember-pouch';
 
@@ -18,7 +19,7 @@ export default Model.extend({
   bench4Id: DS.attr('string'),
   bench5Id: DS.attr('string'),
 
-  quarterback: null,
+  quarterBack: null,
   runningBack1: null,
   runningBack2: null,
   wideReceiver1: null,
@@ -32,4 +33,10 @@ export default Model.extend({
   bench3: null,
   bench4: null,
   bench5: null,
+
+  salaryTotal: Ember.computed('quarterBackId', 'runningBack1Id', 'runningBack2Id', 'wideReceiver1Id', 'wideReceiver2Id', 'tightEndId', 'flexId', 'kickerId', 'defenseId', 'bench1Id', 'bench2Id', 'bench3Id', 'bench4Id', 'bench5Id', function() {
+    return (this.get('quarterBack.cost') || 0) + (this.get('runningBack1.cost') || 0) + (this.get('runningBack2.cost') || 0) + (this.get('wideReceiver1.cost') || 0) +
+      (this.get('wideReceiver2.cost') || 0) + (this.get('tightEnd.cost') || 0) + (this.get('flex.cost') || 0) + (this.get('kicker.cost') || 0) + (this.get('defense.cost') || 0) +
+      (this.get('bench1.cost') || 0) + (this.get('bench2.cost') || 0) + (this.get('bench3.cost') || 0) + (this.get('bench4.cost') || 0) + (this.get('bench5.cost') || 0);
+  })
 });

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import { Model } from 'ember-pouch';
 
@@ -18,4 +19,8 @@ export default Model.extend({
   round12: DS.attr('number'),
   round13: DS.attr('number'),
   round14: DS.attr('number'),
+
+  franchiseName: Ember.computed('name', function() {
+    return this.get('name').toUpperCase();
+  })
 });

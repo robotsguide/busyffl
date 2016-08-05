@@ -7,7 +7,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('teams');
+  this.route('teams', function() {
+    this.route('team', {path: 'teams/:id'});
+  });
   this.route('players');
   this.route('waivers');
   this.route('login');
