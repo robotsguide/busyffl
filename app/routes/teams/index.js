@@ -12,7 +12,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             team.set('roster', ros);
           });
 
-          return models.sortBy('round1');
+          return models.sortBy('name');
         });
       });
     });

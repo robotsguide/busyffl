@@ -3,7 +3,7 @@
   {{#each model as |team|}}
     <div>
       <div class="title" {{action 'openTeam' team.ownerId}}>
-        <div><label>Team Name</label><span>{{team.name}}</span></div>
+        <div><label>Team Name</label><span>{{team.franchiseName}}</span></div>
       </div>
 
       <div class="roster">
@@ -23,7 +23,7 @@
         <div><label>Bench</label><span>{{team.roster.bench5.name}}</span></div>
       </div>
 
-      <div class="draft-order">
+{{!--      <div class="draft-order">
         <div><label>Round 1</label><span>{{team.round1}}</span></div>
         <div><label>Round 2</label><span>{{team.round2}}</span></div>
         <div><label>Round 3</label><span>{{team.round3}}</span></div>
@@ -38,7 +38,7 @@
         <div><label>Round 12</label><span>{{team.round12}}</span></div>
         <div><label>Round 13</label><span>{{team.round13}}</span></div>
         <div><label>Round 14</label><span>{{team.round14}}</span></div>
-      </div>
+      </div> --}}
     </div>
   {{/each}}
 </div>

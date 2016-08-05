@@ -157,56 +157,6 @@ body {
     display: block;
     width: 100%;
     height: 100%;
-
-    .v-teams {
-      display: block;
-      width: 100%;
-      max-width: 1206px;
-      height: 100%;
-      margin: 0 auto;
-
-      & > div {
-        width: 100%;
-
-        &.title {
-          height: 32px;
-        }
-
-        &.roster {
-          height: 600px;
-        }
-
-        &.draft-order {
-          display: none;
-        }
-
-        & > div {
-          display: block;
-          float: left;
-          width: 350px;
-          border: 1px solid #ccc;
-          background: #e5e5e5;
-          margin: 10px 25px;
-
-          & > div {
-            display: block;
-            width: 100%;
-            height: 32px;
-            border-bottom: 1px solid #ccc;
-            box-sizing: border-box;
-            padding: 5px 10px;
-
-            & > label {
-              float: left;
-            }
-
-            & > span {
-              float: right;
-            }
-          }
-        }
-      }
-    }
   }
 }
 
