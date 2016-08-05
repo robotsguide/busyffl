@@ -47,6 +47,7 @@ body {
     padding: 5px 15px;
     font: 12px/1 Verdana;
     border-radius: 3px;
+    color: #30aeef;
     cursor: pointer;
 
     &.blue {
@@ -81,8 +82,9 @@ body {
       margin: 0 15px 0 0;
 
       &.logo {
-        float: none;
+        float: left;
         margin: 0;
+        padding: 0 0 0 40px;
       }
 
       & > ul {
@@ -162,6 +164,7 @@ body {
       }
     }
 
+    @import 'index';
     @import 'players';
   }
 }

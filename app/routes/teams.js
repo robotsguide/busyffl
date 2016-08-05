@@ -33,6 +33,5 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     roster.set('bench3', players.findBy('id', roster.get('bench3Id')));
     roster.set('bench4', players.findBy('id', roster.get('bench4Id')));
     roster.set('bench5', players.findBy('id', roster.get('bench5Id')));
-    console.log(roster.get('quarterBack.name'), roster.get('quarterBackId'));
   }
 });

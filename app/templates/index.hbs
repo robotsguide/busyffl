@@ -1,4 +1,161 @@
 
 <div class="v-index">
+  {{log model}}
 
+  <div class="options"></div>
+
+  <div class="team">
+    <header>{{model.username}}</header>
+
+    <div class="roster">
+      <div>
+        <label>QB</label>
+        <span>{{model.team.roster.quarterBack.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.quarterBack}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.quarterBack}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>RB</label>
+        <span>{{model.team.roster.runningBack1.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.runningBack1}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.runningBack1}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>RB</label>
+        <span>{{model.team.roster.runningBack2.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.runningBack2}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.runningBack2}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>WR</label>
+        <span>{{model.team.roster.wideReceiver1.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.wideReceiver1}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.wideReceiver1}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>WR</label>
+        <span>{{model.team.roster.wideReceiver2.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.wideReceiver2}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.wideReceiver2}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>TE</label>
+        <span>{{model.team.roster.tightEnd.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.tightEnd}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.tightEnd}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>FLEX</label>
+        <span>{{model.team.roster.flex.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.flex}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.felx}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>K</label>
+        <span>{{model.team.roster.kicker.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.kicker}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.kicker}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>DST</label>
+        <span>{{model.team.roster.defense.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.defense}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.defense}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>Bench</label>
+        <span>{{model.team.roster.bench1.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.bench1}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.bench1}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>Bench</label>
+        <span>{{model.team.roster.bench2.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.bench2}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.bench2}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>Bench</label>
+        <span>{{model.team.roster.bench3.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.bench3}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.bench3}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>Bench</label>
+        <span>{{model.team.roster.bench4.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.bench4}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.bench4}}>Drop</a>
+        </span>
+      </div>
+      <div>
+        <label>Bench</label>
+        <span>{{model.team.roster.bench5.name}}</span>
+        <span>
+          <a class="button" {{action 'trade' model.team.roster.bench5}}>Trade</a>
+          <a class="button" {{action 'drop' model.team.roster.bench5}}>Drop</a>
+        </span>
+      </div>
+    </div>
+    <div class="picks">
+      <header>
+        <label></label>
+        <label>Round 1</label>
+        <label>Round 2</label>
+        <label>Round 3</label>
+        <label>Round 4</label>
+        <label>Round 5</label>
+        <label>Round 6</label>
+        <label>Round 7</label>
+        <label>Round 8</label>
+        <label>Round 9</label>
+        <label>Round 10</label>
+        <label>Round 11</label>
+        <label>Round 12</label>
+        <label>Round 13</label>
+        <label>Round 14</label>
+      </header>
+      <div>
+        <span>Picks</span>
+        <span>{{model.team.round1}}</span>
+        <span>{{model.team.round2}}</span>
+        <span>{{model.team.round3}}</span>
+        <span>{{model.team.round4}}</span>
+        <span>{{model.team.round5}}</span>
+        <span>{{model.team.round6}}</span>
+        <span>{{model.team.round7}}</span>
+        <span>{{model.team.round8}}</span>
+        <span>{{model.team.round9}}</span>
+        <span>{{model.team.round10}}</span>
+        <span>{{model.team.round11}}</span>
+        <span>{{model.team.round12}}</span>
+        <span>{{model.team.round13}}</span>
+        <span>{{model.team.round14}}</span>
+      </div>
+    </div>
+  </div>
 </div>
