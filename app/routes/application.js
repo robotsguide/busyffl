@@ -19,6 +19,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       this.transitionTo('teams');
     },
 
+    waivers() {
+      this.transitionTo('waivers');
+    },
+
     players() {
       this.transitionTo('players');
     },

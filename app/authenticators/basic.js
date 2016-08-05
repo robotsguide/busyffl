@@ -26,8 +26,6 @@ export default BaseAuthenticator.extend({
   },
 
   restore(data) {
-    console.log(data);
-
     return Ember.RSVP.resolve(data);
   },
 });
