@@ -1,19 +1,21 @@
 
-<div class="v-application">
-  <header>
-   <span class="logo" {{action 'home'}}><b>busy</b>FFL</span>
+<div class="v-application {{if session.isAuthenticated '' 'no-auth'}}">
+  {{#if session.isAuthenticated}}
+    <header>
+     <span class="logo" {{action 'home'}}><b>busy</b>FFL</span>
 
-   <span>
-      <ul>
-        <li {{action 'teams'}}>Teams</li>
-        <li {{action 'players'}}>Players</li>
-       <!-- <li {{!action 'settings'}}>Settings</li>
-        <li {{!action 'logout'}}>Logout</li> -->
-      </ul>
-   </span>
-  </header>
+     <span>
+        <ul>
+          <li {{action 'teams'}}>Teams</li>
+          <li {{action 'players'}}>Players</li>
+         <!-- <li {{!action 'settings'}}>Settings</li> -->
+          <li {{action 'logout'}}>Logout</li>
+        </ul>
+     </span>
+    </header>
+  {{/if}}
 
-  <section>
+  <div class="main-content">
     {{outlet}}
-  </section>
+  </div>
 </div>

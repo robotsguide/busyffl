@@ -1,12 +1,5 @@
 import Ember from 'ember';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend({
-//  model() {
-//    return this.store.query('member', {username: "suclimbing"}).then(member => {
-//      console.log(member);
-//      return member;
-//    });
-//  }
-//
-
+export default Ember.Route.extend(AuthenticatedRouteMixin, {
 });

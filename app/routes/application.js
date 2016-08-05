@@ -1,16 +1,11 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend({
 
-  init() {
-    this._super();
-  },
+export default Ember.Route.extend(ApplicationRouteMixin, {
 
   model() {
     return this.store.findAll('member').then(models => {
-      models.forEach(item => {
-        console.log(item.get('id'), item.get('firstName'), item.get('lastName'), item.get('username'));
-      });
       return models;
     });
   },
@@ -31,5 +26,9 @@ export default Ember.Route.extend({
     settings() {
       this.transitionTo('settings');
     },
+
+    logout() {
+      this.get('session').invalidate('authenticator:basic');
+    }
   }
 });

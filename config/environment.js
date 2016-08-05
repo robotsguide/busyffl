@@ -18,6 +18,10 @@ module.exports = function(environment) {
       remoteDb: "https://suclimbing.cloudant.com/busyffl"
     },
 
+    'ember-simple-auth': {
+      authenticationRoute: 'login',
+    },
+
     APP: {
       CLOUDANT_KEY: "cohnewheyedleaseveringav",
       CLOUDANT_PASSWORD: "967291deacd1129815c66afdb322894396e72069",
