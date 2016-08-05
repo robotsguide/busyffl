@@ -24,6 +24,10 @@ export default Ember.Route.extend({
       this.transitionTo('teams');
     },
 
+    waivers() {
+      this.transitionTo('waivers');
+    },
+
     players() {
       this.transitionTo('players');
     },
