@@ -1,0 +1,19 @@
+
+<div class="v-application">
+  <header>
+   <span class="logo" {{action 'home'}}><b>busy</b>FFL</span>
+
+   <span>
+      <ul>
+        <li {{action 'teams'}}>Teams</li>
+        <li {{action 'players'}}>Players</li>
+       <!-- <li {{!action 'settings'}}>Settings</li>
+        <li {{!action 'logout'}}>Logout</li> -->
+      </ul>
+   </span>
+  </header>
+
+  <section>
+    {{outlet}}
+  </section>
+</div>

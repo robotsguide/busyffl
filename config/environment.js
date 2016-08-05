@@ -13,9 +13,15 @@ module.exports = function(environment) {
       }
     },
 
+    emberPouch: {
+      localDb: "local_pouch",
+      remoteDb: "https://suclimbing.cloudant.com/busyffl"
+    },
+
     APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
+      CLOUDANT_KEY: "cohnewheyedleaseveringav",
+      CLOUDANT_PASSWORD: "967291deacd1129815c66afdb322894396e72069",
+      API_URL: "https://suclimbing.cloudant.com/busyffl",
     }
   };
 
