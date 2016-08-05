@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('players');
   this.route('waivers');
   this.route('login');
+  this.route('settings');
 });
 
 export default Router;

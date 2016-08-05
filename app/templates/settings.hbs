@@ -1,0 +1,43 @@
+
+
+<div class="v-settings">
+  <header>Settings</header>
+
+  <div class="error {{if showError 'show'}}">{{errorMessage}}</div>
+
+  <div class="container">
+    <div class="form-item">
+      <label>Username</label>
+      <input class="username" type="text" value="{{model.username}}" />
+    </div>
+
+    <div class="form-item">
+      <label>Frist Name</label>
+      <input class="first-name" type="text" value="{{model.firstName}}" />
+    </div>
+
+    <div class="form-item">
+      <label>Last Name</label>
+      <input class="last-name" type="text" value="{{model.lastName}}" />
+    </div>
+
+    <div class="form-item">
+      <label>Team Name</label>
+      <input class="team-name" type="text" value="{{model.team.name}}" />
+    </div>
+
+    <div class="form-item">
+      <label>Change Password</label>
+      <input class="password" type="password" />
+    </div>
+
+    <div class="form-item">
+      <label>Re-Type Password</label>
+      <input class="retype-pass" type="password"/>
+    </div>
+
+    <div class="buttons">
+      <a class="button blue" {{action 'submit'}}>Save</a>
+    </div>
+  </div>
+</div>
