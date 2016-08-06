@@ -202,6 +202,10 @@
   </div>
 </div>
 
+{{#if showTradeDialog}}
+  {{dialogs.trade-dialog onClose="cancelTrade" player=player}}
+{{/if}}
+
 {{#if showDropDialog}}
   {{#modal-dialog close="cancelDrop"}}
     <div class="v-drop-dialog">

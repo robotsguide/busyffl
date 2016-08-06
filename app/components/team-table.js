@@ -8,9 +8,21 @@ export default Ember.Component.extend({
   owner: false,
 
   showDropDialog: false,
+  showTradeDialog: false,
+
   player: null,
 
   actions: {
+    trade(player) {
+      this.set('player', player);
+      this.set('showTradeDialog', true);
+    },
+
+    cancelTrade() {
+      this.set('showTradeDialog', false);
+      this.set('player', null);
+    },
+
     drop(player) {
       this.set('player', player);
       this.set('showDropDialog', true);
