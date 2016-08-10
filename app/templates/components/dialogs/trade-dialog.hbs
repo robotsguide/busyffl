@@ -2,16 +2,16 @@
 {{#modal-dialog close="closeAction"}}
   <div class="v-trade-dialog">
 
-    {{#if selsectedTeam}}
+    {{#if selectedTeam.roster}}
       <header>Choose players to trade for...</header>
       <div class="roster">
-        {{#each players as |player|}}
-
-        {{/each}}
+        <div>
+          {{roster-list model=selectedTeam onSelect="selectPlayer"}}
+        </div>
       </div>
       <footer>
         <a class="button blue" {{action 'nextAction'}}>Next</a>
-        <a class="button grey" {{action 'CancelSelectedTeam'}}>Back</a>
+        <a class="button grey" {{action 'cancelSelectedTeam'}}>Back</a>
       </footer>
     {{else if showRoster}}
 

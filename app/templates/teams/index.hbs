@@ -6,23 +6,7 @@
         <div class="title" {{action 'openTeam' team.ownerId}}>
           <div><label>Team Name</label><span>{{team.franchiseName}}</span></div>
         </div>
-
-        <div class="roster">
-          <div><label>QB</label><span>{{team.roster.quarterBack.name}}</span></div>
-          <div><label>RB</label><span>{{team.roster.runningBack1.name}}</span></div>
-          <div><label>RB</label><span>{{team.roster.runningBack2.name}}</span></div>
-          <div><label>WR</label><span>{{team.roster.wideReceiver1.name}}</span></div>
-          <div><label>WR</label><span>{{team.roster.wideReceiver2.name}}</span></div>
-          <div><label>TE</label><span>{{team.roster.tightEnd.name}}</span></div>
-          <div><label>FLEX</label><span>{{team.roster.flex.name}}</span></div>
-          <div><label>K</label><span>{{team.roster.kicker.name}}</span></div>
-          <div><label>DST</label><span>{{team.roster.defense.name}}</span></div>
-          <div><label>Bench</label><span>{{team.roster.bench1.name}}</span></div>
-          <div><label>Bench</label><span>{{team.roster.bench2.name}}</span></div>
-          <div><label>Bench</label><span>{{team.roster.bench3.name}}</span></div>
-          <div><label>Bench</label><span>{{team.roster.bench4.name}}</span></div>
-          <div><label>Bench</label><span>{{team.roster.bench5.name}}</span></div>
-        </div>
+          {{roster-list model=team}}
 
   {{!--      <div class="draft-order">
           <div><label>Round 1</label><span>{{team.round1}}</span></div>

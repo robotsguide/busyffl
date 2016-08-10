@@ -48,6 +48,17 @@
         }
       }
     }
+
+    &.roster {
+      width: 100%;
+      background: #f7f6f5;
+      padding: 15px 0;
+
+      & > div {
+        width: 50%;
+        margin: 0 auto;
+      }
+    }
   }
 
   & > footer {

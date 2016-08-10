@@ -22,7 +22,9 @@ export default BaseAuthenticator.extend({
       Ember.RSVP.reject("Password is incorrect");
     }
 
-    return Ember.RSVP.resolve(member.toJSON());
+    const data = member.toJSON();
+    data.id = member.id;
+    return Ember.RSVP.resolve(data);
   },
 
   restore(data) {
