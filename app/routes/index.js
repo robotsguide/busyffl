@@ -25,7 +25,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       }).then(models => {
         let requests = models.trades.filterBy('rejectedOn', null);
         requests = requests.filterBy('acceptedOn', null);
-        //requests = requests.filterBy('toTeamId', team.id);
+        requests = requests.filterBy('toTeamId', team.id);
 
         return {member: models.member, trades: this.getTradeData(requests, data)};
       });
