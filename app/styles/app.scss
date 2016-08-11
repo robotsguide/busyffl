@@ -113,6 +113,21 @@ body {
     padding: 0;
   }
 
+  &.syncing {
+
+    &:after {
+      position: absolute;
+      content: 'Syncing data...';
+      top: 20px;
+      right: 20px;
+      padding: 20px 30px;
+      font: 22px/1 Verdana;
+      color: #444;
+      background: rgba(255,255,255,.5);
+      border-radius: 5px;
+    }
+  }
+
   & > header {
     width: 100%;
     height: 56px;

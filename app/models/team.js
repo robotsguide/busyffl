@@ -9,11 +9,21 @@ export default Model.extend({
   draftPicks: null,
   teamRosters: null,
 
-  totalSalary: Ember.computed('teamRosters.@each.effectiveCost', function() {
+  totalActiveSalary: Ember.computed('teamRosters.@each.effectiveCost', function() {
     let total = 0;
     if(!Ember.isEmpty(this.get('teamRosters'))) {
       this.get('teamRosters').forEach(item => {
         total += item.get('effectiveCost');
+      });
+    }
+    return total;
+  }),
+
+  totalSalary: Ember.computed('teamRosters.@each.actualCost', function() {
+    let total = 0;
+    if(!Ember.isEmpty(this.get('teamRosters'))) {
+      this.get('teamRosters').forEach(item => {
+        total += item.get('actualCost');
       });
     }
     return total;

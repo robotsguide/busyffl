@@ -13,7 +13,6 @@ const kPositionSymbol = {
 
 export default Model.extend({
   rosterId: DS.attr('string'),
-  teamRosterId: DS.attr('string'),
   name: DS.attr('string'),
   postition: DS.attr('string'),
   team: DS.attr('string'),

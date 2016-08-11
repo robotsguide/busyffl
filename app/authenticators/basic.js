@@ -3,28 +3,30 @@ import Ember from 'ember';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 
 export default BaseAuthenticator.extend({
+  store: Ember.inject.service('store'),
 
   authenticate(args) {
-    if(Ember.isEmpty(args.username) || Ember.isEmpty(args.password) || Ember.isEmpty(args.model)) {
-      return Ember.RSVP.reject("Username or password must be provided");
-    }
+    return this.get('store').findAll('member').then(model => {
+      if(Ember.isEmpty(args.username) || Ember.isEmpty(args.password)) {
+        return Ember.RSVP.reject("Username or password must be provided");
+      }
 
-    const user = args.username;
-    const password = btoa(args.password);
-    const model = args.model;
+      const user = args.username;
+      const password = btoa(args.password);
 
-    const member = model.findBy('username', user);
-    if(Ember.isNone(member)) {
-      Ember.RSVP.reject("Username does not match any users in the system.");
-    }
+      const member = model.findBy('username', user);
+      if(Ember.isNone(member) || Ember.isNone(member.get) || Ember.isNone(member.get('id'))) {
+        return Ember.RSVP.reject("Data is syncing please wait and try again in a moment!");
+      }
 
-    if(member.get('password') !== password) {
-      Ember.RSVP.reject("Password is incorrect");
-    }
+      if(member.get('password') !== password) {
+        return Ember.RSVP.reject("Password is incorrect");
+      }
 
-    const data = member.toJSON();
-    data.id = member.id;
-    return Ember.RSVP.resolve(data);
+      const data = member.toJSON();
+      data.id = member.id;
+      return Ember.RSVP.resolve(data);
+    });
   },
 
   restore(data) {

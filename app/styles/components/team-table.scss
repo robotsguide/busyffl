@@ -99,6 +99,10 @@
           & > span {
             & > .button {
               display: none;
+
+              &.select {
+                display: inline-block;
+              }
             }
           }
         }
@@ -115,13 +119,15 @@
         padding: 0 15px;
         box-sizing: border-box;
 
-        & > span {
-          float: left;
-          font: bold 14px/41px Verdana;
-          color: #666;
+        & > div {
+          & > span {
+            float: left;
+            font: bold 14px/41px Verdana;
+            color: #666;
 
-          &:last-of-type {
-            float: right;
+            &:last-of-type {
+              float: right;
+            }
           }
         }
       }

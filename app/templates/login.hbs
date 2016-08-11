@@ -4,6 +4,8 @@
     <span class="logo"><b>busy</b>FFL</span>
   </header>
 
+  <div class="error {{if showErrorMessage 'show'}}">{{errorMessage}}</div>
+
   <div class="login-box">
     <input type="text" placeholder="Username" value="{{username}}" {{action 'authenticate' on='submit'}} />
 

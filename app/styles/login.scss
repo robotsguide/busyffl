@@ -16,6 +16,26 @@
     }
   }
 
+  & > .error {
+    width: 400px;
+    height: 32px;
+    margin: 0 auto 15px;
+    padding: 0 15px;
+    background: rgba(220, 69, 69, 0);
+    font: 12px/31px Verdana;
+    color: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    transition: all ease .5s;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &.show {
+      background: rgba(220, 69, 69, 1);
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+
   & > .login-box {
     width: 400px;
     height: 145px;

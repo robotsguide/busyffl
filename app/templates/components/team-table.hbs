@@ -5,7 +5,11 @@
     <span>{{model.team.franchiseName}}</span>
     <span class="options">
       {{#if owner}}
-        <a class="button grey" {{action 'trade'}}>Trade</a>
+        {{#if moveState}}
+          <a class="button grey" {{action 'cancelMove'}}>Cancel</a>
+        {{else}}
+          <a class="button grey" {{action 'trade'}}>Trade</a>
+        {{/if}}
       {{/if}}
     </span>
   </header>
@@ -18,10 +22,17 @@
         <span class="cost">{{roster.player.priceTag}}</span>
         <span>
           {{#if owner}}
-            {{#if roster.markedForDrop}}
-              <a class="button" {{action 'undrop' roster}}>Activate</a>
+            {{#if moveState}}
+              {{#if roster.canPlace}}
+                <a class="button select" {{action 'moveTo' roster}}>Select</a>
+              {{/if}}
             {{else}}
-              <a class="button" {{action 'drop' roster}}>Deactivate</a>
+              <a class="button" {{action 'move' roster}}>Move</a>
+              {{#if roster.markedForDrop}}
+                <a class="button" {{action 'undrop' roster}}>Activate</a>
+              {{else}}
+                <a class="button" {{action 'drop' roster}}>Deactivate</a>
+              {{/if}}
             {{/if}}
           {{/if}}
         </span>
@@ -30,8 +41,8 @@
   </div>
   <div class="right">
     <div class="total">
-      <span>Team Salary</span>
-      <span>${{model.team.totalSalary}}</span>
+      <div><span>Active Salary</span><span>${{model.team.totalActiveSalary}}</span></div>
+      <div><span>Team Salary</span><span>${{model.team.totalSalary}}</span></div>
     </div>
     <div class="picks">
       <div>

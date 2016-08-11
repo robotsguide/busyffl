@@ -1,5 +1,5 @@
 
-<div class="v-application {{if session.isAuthenticated '' 'no-auth'}}">
+<div class="v-application {{if session.isAuthenticated '' 'no-auth'}} {{if isSync 'syncing'}}">
   {{#if session.isAuthenticated}}
     <header>
      <span class="logo" {{action 'home'}}><b>busy</b>FFL</span>

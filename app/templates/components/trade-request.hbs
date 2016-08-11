@@ -1,0 +1,43 @@
+
+<div class="title">
+  <span>You have a new trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
+
+  <span>
+    <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
+    <a class="button red" {{action 'declineTrade' model}}>Decline</a>
+  </span>
+</div>
+
+<div class="body">
+  <div class="players">
+    <label>Trade you the following players:</label>
+    {{#each model.fromPlayerModels as |player|}}
+      <div>{{player.player.positionSymbol}} {{player.playerName}}</div>
+    {{else}}
+      <span>None</span>
+    {{/each}}
+
+    <label>For your players:</label>
+    {{#each model.toPlayerModels as |player|}}
+      <div>{{player.player.positionSymbol}} {{player.playerName}}</div>
+    {{else}}
+      <span>None</span>
+    {{/each}}
+  </div>
+
+  <div class="picks">
+    <label>And the following picks:</label>
+    {{#each model.fromPickModels as |pick|}}
+      <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+    {{else}}
+      <span>None</span>
+    {{/each}}
+
+    <label>For your picks:</label>
+    {{#each model.toPickModels as |pick|}}
+      <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+    {{else}}
+      <span>None</span>
+    {{/each}}
+  </div>
+</div>

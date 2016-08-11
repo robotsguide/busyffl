@@ -15,9 +15,17 @@ function createDb() {
   if (config.emberPouch.remoteDb) {
     let remoteDb = new PouchDB(config.emberPouch.remoteDb);
 
-    db.sync(remoteDb, {
+    const sync = db.sync(remoteDb, {
       live: true,
       retry: true
+    });
+
+    sync.on('active', () => {
+      Ember.set(window, 'isSync', true);
+    });
+
+    sync.on('paused', () => {
+      Ember.set(window, 'isSync', false);
     });
   }
 

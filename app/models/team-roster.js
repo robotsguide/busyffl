@@ -33,6 +33,10 @@ export default Model.extend({
     return 0;
   }),
 
+  actualCost: Ember.computed('player.cost', function() {
+    return this.get('player.cost') || 0;
+  }),
+
   positionSymbol: Ember.computed('rosterPosition', function() {
     return kPositionSymbol[this.get('rosterPosition')] || "Bench";
   }),
