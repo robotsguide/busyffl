@@ -5,20 +5,19 @@ import { Model } from 'ember-pouch';
 export default Model.extend({
   name: DS.attr('string'),
   ownerId: DS.attr('string'),
-  round1: DS.attr('number'),
-  round2: DS.attr('number'),
-  round3: DS.attr('number'),
-  round4: DS.attr('number'),
-  round5: DS.attr('number'),
-  round6: DS.attr('number'),
-  round7: DS.attr('number'),
-  round8: DS.attr('number'),
-  round9: DS.attr('number'),
-  round10: DS.attr('number'),
-  round11: DS.attr('number'),
-  round12: DS.attr('number'),
-  round13: DS.attr('number'),
-  round14: DS.attr('number'),
+
+  draftPicks: null,
+  teamRosters: null,
+
+  totalSalary: Ember.computed('teamRosters.@each.effectiveCost', function() {
+    let total = 0;
+    if(!Ember.isEmpty(this.get('teamRosters'))) {
+      this.get('teamRosters').forEach(item => {
+        total += item.get('effectiveCost');
+      });
+    }
+    return total;
+  }),
 
   franchiseName: Ember.computed('name', function() {
     return this.get('name').toUpperCase();

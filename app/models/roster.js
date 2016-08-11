@@ -18,15 +18,6 @@ export default Model.extend({
   bench3Id: DS.attr('string'),
   bench4Id: DS.attr('string'),
   bench5Id: DS.attr('string'),
-  bench6Id: DS.attr('string'),
-  bench7Id: DS.attr('string'),
-  bench8Id: DS.attr('string'),
-  bench9Id: DS.attr('string'),
-  bench10Id: DS.attr('string'),
-  bench11Id: DS.attr('string'),
-  bench12Id: DS.attr('string'),
-  bench13Id: DS.attr('string'),
-  bench14Id: DS.attr('string'),
 
   quarterBack: null,
   runningBack1: null,
@@ -52,11 +43,16 @@ export default Model.extend({
   bench13: null,
   bench14: null,
 
-  salaryTotal: Ember.computed('quarterBackId', 'runningBack1Id', 'runningBack2Id', 'wideReceiver1Id', 'wideReceiver2Id', 'tightEndId', 'flexId', 'kickerId', 'defenseId', 'bench1Id', 'bench2Id', 'bench3Id', 'bench4Id', 'bench5Id', function() {
-    return (this.get('quarterBack.cost') || 0) + (this.get('runningBack1.cost') || 0) + (this.get('runningBack2.cost') || 0) + (this.get('wideReceiver1.cost') || 0) +
-      (this.get('wideReceiver2.cost') || 0) + (this.get('tightEnd.cost') || 0) + (this.get('flex.cost') || 0) + (this.get('kicker.cost') || 0) + (this.get('defense.cost') || 0) +
-      (this.get('bench1.cost') || 0) + (this.get('bench2.cost') || 0) + (this.get('bench3.cost') || 0) + (this.get('bench4.cost') || 0) + (this.get('bench5.cost') || 0) +
-      (this.get('bench6.cost') || 0) + (this.get('bench7.cost') || 0) + (this.get('bench8.cost') || 0) + (this.get('bench9.cost') || 0) + (this.get('bench10.cost') || 0) +
-      (this.get('bench11.cost') || 0) + (this.get('bench12.cost') || 0) + (this.get('bench13.cost') || 0) + (this.get('bench14.cost') || 0);
+  salaryTotal: Ember.computed('quarterBack.effectiveCost', 'runningBack1.effectiveCost', 'runningBack2.effectiveCost', 'wideReceiver1.effectiveCost', 'wideReceiver2.effectiveCost',
+                              'tightEnd.effectiveCost', 'flex.effectiveCost', 'kicker.effectiveCost', 'defense.effectiveCost', 'bench1.effectiveCost', 'bench2.effectiveCost',
+                              'bench3.effectiveCost', 'bench4.effectiveCost', 'bench5.effectiveCost', 'bench6.effectiveCost', 'bench7.effectiveCost', 'bench8.effectiveCost',
+                              'bench9.effectiveCost', 'bench10.effectiveCost', 'bench11.effectiveCost', 'bench12.effectiveCost', 'bench12.effectiveCost', 'bench13.effectiveCost',
+                              'bench14.effectiveCost', function()
+  {
+    return (this.get('quarterBack.effectiveCost') || 0) + (this.get('runningBack1.effectiveCost') || 0) + (this.get('runningBack2.effectiveCost') || 0) + (this.get('wideReceiver1.effectiveCost') || 0) +
+      (this.get('wideReceiver2.effectiveCost') || 0) + (this.get('tightEnd.effectiveCost') || 0) + (this.get('flex.effectiveCost') || 0) + (this.get('kicker.effectiveCost') || 0) + (this.get('defense.effectiveCost') || 0) +
+      (this.get('bench1.effectiveCost') || 0) + (this.get('bench2.effectiveCost') || 0) + (this.get('bench3.effectiveCost') || 0) + (this.get('bench4.effectiveCost') || 0) + (this.get('bench5.effectiveCost') || 0) +
+      (this.get('bench6.effectiveCost') || 0) + (this.get('bench7.effectiveCost') || 0) + (this.get('bench8.effectiveCost') || 0) + (this.get('bench9.effectiveCost') || 0) + (this.get('bench10.effectiveCost') || 0) +
+      (this.get('bench11.effectiveCost') || 0) + (this.get('bench12.effectiveCost') || 0) + (this.get('bench13.effectiveCost') || 0) + (this.get('bench14.effectiveCost') || 0);
   })
 });

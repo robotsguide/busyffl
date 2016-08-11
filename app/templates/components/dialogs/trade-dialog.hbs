@@ -1,22 +1,79 @@
 
 {{#modal-dialog close="closeAction"}}
   <div class="v-trade-dialog">
-
-    {{#if selectedTeam.roster}}
-      <header>Choose players to trade for...</header>
-      <div class="roster">
-        <div>
-          {{roster-list model=selectedTeam onSelect="selectPlayer"}}
+    {{#if selectedTeam.teamRosters}}
+      {{#if showPicks}}
+        {{#if showSummary}}
+          {{#if showSuccess}}
+            <header>Trade Submitted</header>
+            <div class="success">Your trade has been submitted.</div>
+            <footer>
+              <a class="button grey" {{action 'closeTrade'}}>Finished</a>
+            </footer>
+          {{else}}
+            <header>Trade Summary</header>
+            <div class="summary">
+              <div class="trader">This will submit a trade request with <b>{{selectedTeam.franchiseName}}</b></div>
+              <div class="trade-deal">
+                <div>
+                  <label>Trade players:</label>
+                  {{#each tradeOwnedPlayers as |roster|}}
+                    <div class="giving">{{roster.playerName}}</div>
+                  {{/each}}
+                  <label>For players:</label>
+                  {{#each tradePlayers as |roster|}}
+                    <div class="getting">{{roster.playerName}}</div>
+                  {{/each}}
+                </div>
+                <div>
+                  <label>Trade picks:</label>
+                  {{#each tradeOwnedPicks as |pick|}}
+                    <div class="giving">Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+                  {{/each}}
+                  <label>For picks:</label>
+                  {{#each tradePicks as |pick|}}
+                    <div class="getting">Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            <footer>
+              <a class="button blue" {{action 'submitTrade'}}>Submit</a>
+              <a class="button grey" {{action 'closeSummary'}}>Cancel</a>
+            </footer>
+          {{/if}}
+        {{else}}
+          <header>Choose draft picks to trade...</header>
+          <div class="picks">
+            <div class="owned">
+              {{picks-list model=model onSelect="selectOwnedPick"}}
+            </div>
+            <div class="rival">
+              {{picks-list model=selectedTeam onSelect="selectTradePick"}}
+            </div>
+          </div>
+          <footer>
+            <a class="button blue" {{action 'openSummary'}}>Next</a>
+            <a class="button grey" {{action 'closeTradePicks'}}>Cancel</a>
+          </footer>
+        {{/if}}
+      {{else}}
+        <header>Choose players to trade...</header>
+        <div class="roster">
+          <div class="owned">
+            <header>MY TEAM</header>
+            {{roster-list model=model onSelect="selectOwnedPlayer"}}
+          </div>
+          <div class="rival">
+            <header>{{selectedTeam.franchiseName}}</header>
+            {{roster-list model=selectedTeam onSelect="selectTradePlayer"}}
+          </div>
         </div>
-      </div>
-      <footer>
-        <a class="button blue" {{action 'nextAction'}}>Next</a>
-        <a class="button grey" {{action 'cancelSelectedTeam'}}>Back</a>
-      </footer>
-    {{else if showRoster}}
-
-    {{else if showPicks}}
-
+        <footer>
+          <a class="button blue" {{action 'openTradePicks'}}>Next</a>
+          <a class="button grey" {{action 'cancelSelectedTeam'}}>Cancel</a>
+        </footer>
+      {{/if}}
     {{else}}
       <header>Choose a team to trade with...</header>
       <div class="teams">
@@ -25,9 +82,8 @@
         {{/each}}
       </div>
       <footer>
-        <a class="button grey" {{action 'cencelAction'}}>Cancel</a>
+        <a class="button grey" {{action 'backToOwnerPlayers'}}>back</a>
       </footer>
     {{/if}}
-
   </div>
 {{/modal-dialog}}

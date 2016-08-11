@@ -24,8 +24,13 @@ export default Ember.Component.extend({
     },
 
     drop(player) {
-      this.set('player', player);
-      this.set('showDropDialog', true);
+      player.set('markedForDrop', true);
+      player.save();
+    },
+
+    undrop(player) {
+      player.set('markedForDrop', false);
+      player.save();
     },
 
     cancelDrop() {

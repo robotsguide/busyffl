@@ -1,326 +1,54 @@
 
 
 <div class="team">
-  <header>{{model.team.franchiseName}}</header>
+  <header>
+    <span>{{model.team.franchiseName}}</span>
+    <span class="options">
+      {{#if owner}}
+        <a class="button grey" {{action 'trade'}}>Trade</a>
+      {{/if}}
+    </span>
+  </header>
 
   <div class="roster">
-    <div>
-      <label>QB</label>
-      <span class="name">{{model.team.roster.quarterBack.name}}</span>
-      <span class="cost">{{model.team.roster.quarterBack.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.quarterBack}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.quarterBack}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>RB</label>
-      <span class="name">{{model.team.roster.runningBack1.name}}</span>
-      <span class="cost">{{model.team.roster.runningBack1.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.runningBack1}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.runningBack1}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>RB</label>
-      <span class="name">{{model.team.roster.runningBack2.name}}</span>
-      <span class="cost">{{model.team.roster.runningBack2.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.runningBack2}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.runningBack2}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>WR</label>
-      <span class="name">{{model.team.roster.wideReceiver1.name}}</span>
-      <span class="cost">{{model.team.roster.wideReceiver1.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.wideReceiver1}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.wideReceiver1}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>WR</label>
-      <span class="name">{{model.team.roster.wideReceiver2.name}}</span>
-      <span class="cost">{{model.team.roster.wideReceiver2.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.wideReceiver2}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.wideReceiver2}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>TE</label>
-      <span class="name">{{model.team.roster.tightEnd.name}}</span>
-      <span class="cost">{{model.team.roster.tightEnd.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.tightEnd}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.tightEnd}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>FLEX</label>
-      <span class="name">{{model.team.roster.flex.name}}</span>
-      <span class="cost">{{model.team.roster.flex.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.flex}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.felx}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>K</label>
-      <span class="name">{{model.team.roster.kicker.name}}</span>
-      <span class="cost">{{model.team.roster.kicker.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.kicker}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.kicker}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>DST</label>
-      <span class="name">{{model.team.roster.defense.name}}</span>
-      <span class="cost">{{model.team.roster.defense.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.defense}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.defense}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div class="space"></div>
-    <div>
-      <label>Bench</label>
-      <span class="name">{{model.team.roster.bench1.name}}</span>
-      <span class="cost">{{model.team.roster.bench1.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.bench1}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.bench1}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>Bench</label>
-      <span class="name">{{model.team.roster.bench2.name}}</span>
-      <span class="cost">{{model.team.roster.bench2.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.bench2}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.bench2}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>Bench</label>
-      <span class="name">{{model.team.roster.bench3.name}}</span>
-      <span class="cost">{{model.team.roster.bench3.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.bench3}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.bench3}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>Bench</label>
-      <span class="name">{{model.team.roster.bench4.name}}</span>
-      <span class="cost">{{model.team.roster.bench4.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.bench4}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.bench4}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    <div>
-      <label>Bench</label>
-      <span class="name">{{model.team.roster.bench5.name}}</span>
-      <span class="cost">{{model.team.roster.bench5.priceTag}}</span>
-      <span>
-        <a class="button" {{action 'trade' model.team.roster.bench5}}>Trade</a>
-        {{#if owner}}
-          <a class="button" {{action 'drop' model.team.roster.bench5}}>Drop</a>
-        {{/if}}
-      </span>
-    </div>
-    {{#if model.team.roster.bench6}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench6.name}}</span>
-        <span class="cost">{{model.team.roster.bench6.priceTag}}</span>
+    {{#each model.team.teamRosters as |roster|}}
+      <div class="player{{if roster.player '' ' disable'}}{{if roster.markedForDrop ' inactive'}}">
+        <label>{{roster.positionSymbol}}</label>
+        <span class="name">{{roster.playerName}}</span>
+        <span class="cost">{{roster.player.priceTag}}</span>
         <span>
-          <a class="button" {{action 'trade' model.team.roster.bench6}}>Trade</a>
           {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench6}}>Drop</a>
+            {{#if roster.markedForDrop}}
+              <a class="button" {{action 'undrop' roster}}>Activate</a>
+            {{else}}
+              <a class="button" {{action 'drop' roster}}>Deactivate</a>
+            {{/if}}
           {{/if}}
         </span>
       </div>
-    {{/if}}
-    {{#if model.team.roster.bench7}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench7.name}}</span>
-        <span class="cost">{{model.team.roster.bench7.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench7}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench7}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench8}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench8.name}}</span>
-        <span class="cost">{{model.team.roster.bench8.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench8}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench8}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench9}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench9.name}}</span>
-        <span class="cost">{{model.team.roster.bench9.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench9}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench9}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench10}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench10.name}}</span>
-        <span class="cost">{{model.team.roster.bench10.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench10}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench10}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench11}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench11.name}}</span>
-        <span class="cost">{{model.team.roster.bench11.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench11}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench11}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench12}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench12.name}}</span>
-        <span class="cost">{{model.team.roster.bench12.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench12}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench12}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench13}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench13.name}}</span>
-        <span class="cost">{{model.team.roster.bench13.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench13}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench13}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
-    {{#if model.team.roster.bench14}}
-      <div>
-        <label>Bench</label>
-        <span class="name">{{model.team.roster.bench14.name}}</span>
-        <span class="cost">{{model.team.roster.bench14.priceTag}}</span>
-        <span>
-          <a class="button" {{action 'trade' model.team.roster.bench14}}>Trade</a>
-          {{#if owner}}
-            <a class="button" {{action 'drop' model.team.roster.bench14}}>Drop</a>
-          {{/if}}
-        </span>
-      </div>
-    {{/if}}
+    {{/each}}
   </div>
-  <div class="picks">
-    <header>
-      <label></label>
-      <label>Round 1</label>
-      <label>Round 2</label>
-      <label>Round 3</label>
-      <label>Round 4</label>
-      <label>Round 5</label>
-      <label>Round 6</label>
-      <label>Round 7</label>
-      <label>Round 8</label>
-      <label>Round 9</label>
-      <label>Round 10</label>
-      <label>Round 11</label>
-      <label>Round 12</label>
-      <label>Round 13</label>
-      <label>Round 14</label>
-    </header>
-    <div>
-      <span>Picks</span>
-      <span>{{model.team.round1}}</span>
-      <span>{{model.team.round2}}</span>
-      <span>{{model.team.round3}}</span>
-      <span>{{model.team.round4}}</span>
-      <span>{{model.team.round5}}</span>
-      <span>{{model.team.round6}}</span>
-      <span>{{model.team.round7}}</span>
-      <span>{{model.team.round8}}</span>
-      <span>{{model.team.round9}}</span>
-      <span>{{model.team.round10}}</span>
-      <span>{{model.team.round11}}</span>
-      <span>{{model.team.round12}}</span>
-      <span>{{model.team.round13}}</span>
-      <span>{{model.team.round14}}</span>
+  <div class="right">
+    <div class="total">
+      <span>Team Salary</span>
+      <span>${{model.team.totalSalary}}</span>
     </div>
-  </div>
-  <div class="total">
-    <span>Team Salary</span>
-    <span>${{model.team.roster.salaryTotal}}</span>
+    <div class="picks">
+      <div>
+        <header></header>
+        {{#each model.team.draftPicks as |pick|}}
+          <div>
+            <label>Round {{pick.roundNumber}}</label>
+            <span>{{pick.pickNumber}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </div>
   </div>
 </div>
 
 {{#if showTradeDialog}}
-  {{dialogs.trade-dialog onClose="cancelTrade" player=player}}
+  {{dialogs.trade-dialog onClose="cancelTrade" model=model.team}}
 {{/if}}
 
 {{#if showDropDialog}}

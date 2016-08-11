@@ -49,14 +49,109 @@
       }
     }
 
-    &.roster {
+    &.roster,
+    &.picks {
       width: 100%;
       background: #f7f6f5;
-      padding: 15px 0;
+      padding: 30px;
+      box-sizing: border-box;
 
       & > div {
-        width: 50%;
-        margin: 0 auto;
+        float: left;
+        width: 47%;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 10px -3px #666;
+
+        & > header {
+          color: #3e92a0;
+          font: 16px/1 Verdana;
+          border-bottom: 1px solid #3e92a0;
+          text-align: left;
+          margin: 0 0 0px 0;
+          padding: 10px 15px;
+          box-sizing: border-box;
+        }
+
+        &:last-of-type {
+          float: right;
+        }
+      }
+    }
+
+    &.success {
+      padding: 50px 0 0;
+      font: 24px/100px Verdana;
+      color: #555;
+      box-sizing: border-box;
+    }
+
+    &.summary {
+
+      & > div {
+        width: 100%;
+
+        &.trader {
+          height: 52px;
+          font: bold 18px/31px Verdana;
+          color: #666;
+          padding: 10px;
+          box-sizing: border-box;
+
+          & > b {
+            color: #333;
+          }
+        }
+
+        &.trade-deal {
+          display: inline-block;
+          padding: 0 50px 50px;
+          box-sizing: border-box;
+
+          & > div {
+            display: inline-block;
+            float: left;
+            width: 48%;
+
+            &:last-of-type {
+              float: right;
+            }
+
+            & > label {
+              text-align: left;
+              display: inline-block;
+              width: 100%;
+              height: 32px;
+              margin: 10px 0 15px 0;
+              font: bold 16px/31px Verdana;
+              color: #444;
+              box-sizing: border-box;
+            }
+
+            & > div {
+              float: left;
+              display: inline-block;
+              padding: 8px 15px;
+              margin: 0 0 10px 10px;
+              font: 12px/1 Verdana;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 20px;
+              text-align: center;
+              color: #fff;
+              letter-spacing: .5px;
+
+              &.giving {
+                background: #ef5c5c;
+                border-color: #cc4343;
+              }
+
+              &.getting {
+                background: #50a0f5;
+                border-color: #50a0f5;
+              }
+            }
+          }
+        }
       }
     }
   }

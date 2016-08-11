@@ -1,0 +1,6 @@
+
+{{#each model.draftPicks as |pick|}}
+  <div class="row {{if pick.selected ' selected'}}" {{action 'selectPick' pick}}>
+    <label>Round {{pick.roundNumber}}</label><span>{{pick.pickNumber}}</span>
+  </div>
+{{/each}}

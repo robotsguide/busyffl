@@ -6,8 +6,11 @@ export default Ember.Component.extend({
   model: null,
 
   actions: {
-    selectPlayer(player) {
-      this.sendAction('onSelect', player);
+    selectPlayer(roster) {
+      if (!Ember.isNone(roster.get('playerId'))) {
+        roster.set('selected', !roster.get('selected'));
+        this.sendAction('onSelect', roster);
+      }
     }
   }
 });

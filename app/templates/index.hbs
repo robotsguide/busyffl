@@ -1,7 +1,49 @@
 
 <div class="v-index">
-  <div class="options"></div>
+  <div>
+    <div class="trades">
+      {{#each model.trades as |trade|}}
+        <div>
+          <div class="title">
+            <span>You have a new trade request from <b>{{trade.fromTeam.franchiseName}}</b></span>
 
-  {{team-table model=model owner=true}}
+            <span>
+              <a class="button blue" {{action 'acceptTrade' trade}}>Accept</a>
+              <a class="button red" {{action 'declineTrade' trade}}>Decline</a>
+            </span>
+          </div>
+
+          <div class="body">
+            <div class="players">
+              <label>Trade you the following players:</label>
+              {{#each trade.fromPlayerModels as |player|}}
+                <div>{{player.player.positionSymbol}} {{player.playerName}} {{player.rosterPosition}}</div>
+              {{/each}}
+
+              <label>For your players:</label>
+              {{#each trade.toPlayerModels as |player|}}
+                {{log player}}
+                <div>{{player.player.positionSymbol}} {{player.playerName}} {{player.rosterPosition}}</div>
+              {{/each}}
+            </div>
+
+            <div class="picks">
+              <label>And the following picks:</label>
+              {{#each trade.fromPickModels as |pick|}}
+                <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+              {{/each}}
+
+              <label>For your picks:</label>
+              {{#each trade.toPickModels as |pick|}}
+                <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    {{team-table model=model.member owner=true}}
+  </div>
 </div>
 
