@@ -8,7 +8,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model() {
     return loadAll(this.store).then(data => {
       return this.store.findAll('trade-request').then(trades => {
-        return this.getTradeData(trades, data);
+        return this.getTradeData(trades, data).sortBy('submittedOn').reverse();
       });
     });
   },
