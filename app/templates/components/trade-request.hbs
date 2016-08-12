@@ -22,14 +22,22 @@
 
 <div class="body">
   <div class="players">
-    <label>Trade you the following players:</label>
+    {{#unless disabled}}
+      <label>Trade you the following players:</label>
+    {{else}}
+      <label>Trading players:</label>
+    {{/unless}}
     {{#each model.fromPlayerModels as |player|}}
       <div>{{player.position}} {{player.name}}</div>
     {{else}}
       <span>None</span>
     {{/each}}
 
-    <label>For your players:</label>
+    {{#unless disabled}}
+      <label>For your players:</label>
+    {{else}}
+      <label>For players:</label>
+    {{/unless}}
     {{#each model.toPlayerModels as |player|}}
       <div>{{player.position}} {{player.name}}</div>
     {{else}}
@@ -38,14 +46,22 @@
   </div>
 
   <div class="picks">
-    <label>And the following picks:</label>
+    {{#unless disabled}}
+      <label>Trade you the following picks:</label>
+    {{else}}
+      <label>Trading picks:</label>
+    {{/unless}}
     {{#each model.fromPickModels as |pick|}}
       <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
     {{else}}
       <span>None</span>
     {{/each}}
 
-    <label>For your picks:</label>
+    {{#unless disabled}}
+      <label>For your picks:</label>
+    {{else}}
+      <label>For picks:</label>
+    {{/unless}}
     {{#each model.toPickModels as |pick|}}
       <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
     {{else}}
