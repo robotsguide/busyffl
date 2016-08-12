@@ -1,15 +1,17 @@
 
 <div class="v-teams">
   <div>
-    {{#each model as |team|}}
-      <div>
-        <div class="title" {{action 'openTeam' team.ownerId}}>
-          <div><label>Team Name</label><span>{{team.franchiseName}}</span></div>
-        </div>
-          {{roster-list model=team}}
+    <div>
+      {{#each model as |team|}}
+        <div {{action 'openTeam' team.ownerId}}>
+          <div class="title">
+            <div><span>{{team.franchiseName}}</span></div>
+          </div>
+            {{roster-list model=team selection=false}}
 
-          {{!picks-list model=team}}
-      </div>
-    {{/each}}
+            {{!picks-list model=team}}
+        </div>
+      {{/each}}
+    </div>
   </div>
 </div>

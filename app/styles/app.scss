@@ -10,11 +10,11 @@ $color7: #9cc3ca;
 $color8: #e3ac90;
 $color9: #ef9c3c;
 $color10: #ffd74f;
-$color11: green;
-$color12: #273b4c;
+$color11: #60bb46;
+$color12: #223a4c;
 $bordercolor: #ccc;
-$rowcolor1: #fff;
-$rowcolor2: #eee;
+$rowcolor1: #f1f2f2;
+$rowcolor2: #f7f8f8;
 
 body {
   display: block;
@@ -23,6 +23,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Verdana;
+  letter-spacing: .5px;
 
   & > .ember-view {
     display: block;
@@ -66,7 +67,7 @@ body {
     padding: 8px 20px;
     font: 12px/1 Verdana;
     border-radius: 3px;
-    color: #30aeef;
+    color: $color11;
     cursor: pointer;
 
     &.blue {
@@ -76,7 +77,7 @@ body {
     }
 
     &.grey {
-      background: $color4;
+      background: $color3;
       border: 1px solid $bordercolor;
       color: #444;
     }
@@ -108,14 +109,14 @@ body {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, .4);
+        background: rgba(0, 0, 0, .7);
         overflow: hidden;
 
         & > .ember-modal-dialog {
           width: 100%;
           max-width: 800px;
           height: 100%;
-          padding: 50px 0;
+          padding: 150px 0;
           margin: 0 auto !important;
           text-align: center;
           box-sizing: border-box;
@@ -178,10 +179,11 @@ body {
 
         & > li {
           float: left;
-          width: 100px;
+          width: auto;
           height: 100%;
-          color: #bfbfbf;
+          color: $color4;
           font: 16px/55px Verdana;
+          padding: 0 15px;
           cursor: pointer;
 
           &:hover {

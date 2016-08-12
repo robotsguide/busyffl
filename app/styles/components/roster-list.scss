@@ -6,7 +6,8 @@
   & > div {
     width: 100%;
     height: 32px;
-    background: #ececec;
+    background: $rowcolor2;
+    color: $color1;
     box-sizing: border-box;
     padding: 5px 15px;
     cursor: pointer;
@@ -20,17 +21,17 @@
     }
 
     &:nth-child(2n+1) {
-      background: #f7f6f5;
+      background: $rowcolor1;
     }
 
     &.selected {
-      background: #b1dbf1;
+      background: $color10;
       border-bottom: 1px solid #fff;
       box-shadow: 0 1px 1px 0 #ccc inset;
     }
 
     &.disable {
-      color: #999;
+      color: $color4;
       cursor: default;
     }
   }

@@ -61,7 +61,7 @@
         <header>Choose players to trade...</header>
         <div class="roster">
           <div class="owned">
-            <header>MY TEAM</header>
+            <header>MY ROSTER</header>
             {{roster-list model=model onSelect="selectOwnedPlayer"}}
           </div>
           <div class="rival">
@@ -82,7 +82,7 @@
         {{/each}}
       </div>
       <footer>
-        <a class="button grey" {{action 'backToOwnerPlayers'}}>back</a>
+        <a class="button grey" {{action 'closeAction'}}>Cancel</a>
       </footer>
     {{/if}}
   </div>

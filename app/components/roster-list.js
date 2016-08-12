@@ -5,9 +5,11 @@ export default Ember.Component.extend({
 
   model: null,
 
+  selection: true,
+
   actions: {
     selectPlayer(roster) {
-      if (!Ember.isNone(roster.get('playerId'))) {
+      if (this.get('selection') && !Ember.isNone(roster.get('playerId'))) {
         roster.set('selected', !roster.get('selected'));
         this.sendAction('onSelect', roster);
       }

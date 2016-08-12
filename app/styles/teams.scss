@@ -7,59 +7,61 @@
 
   & > div {
     width: 100%;
-    max-width: 1206px;
-    height: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 50px 0 0 0;
+    box-sizing: border-box;
 
     & > div {
-      display: inline-block;
-      width: 350px;
-      float: left;
-      margin: 10px 25px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      width: 100%;
+      height: auto;
 
       & > div {
-        display: block;
-        float: left;
+        flex-basis: 350px;
         width: 350px;
-        border: 1px solid #ccc;
-        background: #e5e5e5;
+        float: left;
+        margin: 10px 25px;
+        cursor: pointer;
 
         & > div {
           display: block;
-          width: 100%;
-          height: 32px;
-          border-bottom: 1px solid #ccc;
-          box-sizing: border-box;
-          padding: 5px 10px;
+          float: left;
+          width: 350px;
 
-          & > label {
-            float: left;
+          &.title {
+            width: 356px;
+            height: 32px;
+            color: $color9;
+            background: $color1;
+            border-bottom: 1px solid $color1;
+            margin: 0 0 0 -3px;
+            cursor: pointer;
+
+            & > div {
+              display: block;
+              width: 100%;
+              height: 32px;
+              box-sizing: border-box;
+              padding: 0px 10px;
+              font: 16px/31px Verdana;
+
+              & > label {
+                float: left;
+              }
+
+              & > span {
+                float: left;
+              }
+            }
           }
 
-          & > span {
-            float: right;
+          &.draft-order {
+            display: none;
           }
-        }
-
-        &.title {
-          height: 32px;
-          border-bottom: 0;
-          color: #f3f3f3;
-          background: #384d60;
-          cursor: pointer;
-        }
-
-        &.roster {
-          //height: 600px;
-          border-top: 0;
-          border-bottom: 0;
-
-          & > div {
-          }
-        }
-
-        &.draft-order {
-          display: none;
         }
       }
     }
