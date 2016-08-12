@@ -100,7 +100,7 @@ export default Ember.Component.extend({
         submittedOn: moment().unix()
       });
 
-      trade.save().then(() => this.set('showSuccess', true)).catch((err) => this.showError(err));
+      trade.save().then(() => window.location = "/").catch((err) => this.showError(err));
     },
 
     closeTrade() {

@@ -1,11 +1,18 @@
 
 <div class="title">
   {{#unless disabled}}
-    <span>You have a new trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
-    <span>
-      <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
-      <a class="button red" {{action 'declineTrade' model}}>Decline</a>
-    </span>
+    {{#if model.isRequested}}
+      <span>You have a trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
+      <span>
+        <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
+        <a class="button red" {{action 'declineTrade' model}}>Decline</a>
+      </span>
+    {{else}}
+      <span>You requested a trade with <b>{{model.toTeam.franchiseName}}</b></span>
+      <span>
+        <a class="button blue" {{action 'declineTrade' model}}>Cancel Request</a>
+      </span>
+    {{/if}}
   {{else}}
     <span><b>{{model.fromTeam.franchiseName}}</b> requested a trade with <b>{{model.toTeam.franchiseName}}</b></span>
     <span>

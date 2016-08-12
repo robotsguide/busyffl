@@ -25,23 +25,26 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       }).then(models => {
         let requests = models.trades.filterBy('rejectedOn', null);
         requests = requests.filterBy('acceptedOn', null);
-        requests = requests.filterBy('toTeamId', team.id);
+        //requests = requests.filterBy('toTeamId', team.id);
 
-        return {member: models.member, trades: this.getTradeData(requests, data)};
+        return {member: models.member, trades: this.getTradeData(team, requests, data)};
       });
     });
   },
 
-  getTradeData(trades, data) {
+  getTradeData(team, trades, data) {
     trades.forEach(item => {
       const toPlayer = item.get('toPlayer').split(',');
       const fromPlayer = item.get('fromPlayer').split(',');
       const toPick = item.get('toPick').split(',');
       const fromPick = item.get('fromPick').split(',');
 
-
       const fromTeam = data.teams.findBy('id', item.get('fromTeamId'));
       const toTeam = data.teams.findBy('id', item.get('toTeamId'));
+
+      if(team.id === toTeam.id) {
+        item.set('isRequested', true);
+      }
 
       item.set('fromTeam', fromTeam);
       item.set('toTeam', toTeam);
