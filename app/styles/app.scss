@@ -1,4 +1,21 @@
 
+
+$color1: #102639;
+$color2: #f2664f;
+$color3: #f7f8f8;
+$color4: #d8d8d9;
+$color5: #d75842;
+$color6: #898b91;
+$color7: #9cc3ca;
+$color8: #e3ac90;
+$color9: #ef9c3c;
+$color10: #ffd74f;
+$color11: green;
+$color12: #273b4c;
+$bordercolor: #ccc;
+$rowcolor1: #fff;
+$rowcolor2: #eee;
+
 body {
   display: block;
   width: 100vw;
@@ -33,12 +50,12 @@ body {
 
   .logo {
     float: none;
-    color: #bb9d03;
+    color: $color9;
     font: 24px/55px Verdana;
     margin: 0;
 
     & > b {
-      color: #bdbcbc;
+      color: $color3;
       font-weight: normal;
     }
   }
@@ -59,15 +76,21 @@ body {
     }
 
     &.grey {
-      background: #dedede;
-      border: 1px solid #ccc;
+      background: $color4;
+      border: 1px solid $bordercolor;
       color: #444;
     }
 
+    &.green {
+      background: $color11;
+      border: 1px solid $color11;
+      color: $color3;
+    }
+
     &.red {
-      background: #f44336;
-      border: 1px solid #f44336;
-      color: #fff;
+      background: $color5;
+      border: 1px solid $color5;
+      color: $color3;
     }
   }
 
@@ -108,6 +131,7 @@ body {
   height: 100%;
   padding: 56px 0 0;
   box-sizing: border-box;
+  background: $color7;
 
   &.no-auth {
     padding: 0;
@@ -131,7 +155,7 @@ body {
   & > header {
     width: 100%;
     height: 56px;
-    background: #13203e;
+    background: $color1;
     text-align: center;
     margin: -56px 0 0;
 
