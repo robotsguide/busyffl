@@ -172,21 +172,41 @@ export default Ember.Component.extend({
       // start saving message
       this.set('isSaving', true);
 
-      // save trades
-      this.saveTradeRequest(trade).then(() => {
+      // look for changes in trade before submitting.
+      this.get('store').findRecord('trade-request', trade.id).then(tr => {
 
-        // stop loading message
-        this.set('isSaving', false);
+        // make sure trade is still available.
+        if (Ember.isNone(tr.get('rejectedOn'))) {
+          // save trades
+          this.saveTradeRequest(trade).then(() => {
 
-        // refresh page
-        window.location = '/';
+            // stop loading message
+            this.set('isSaving', false);
+
+            // refresh page
+            window.location = '/';
+          });
+        } else {
+          // refresh page
+          window.location = '/';
+        }
       });
     },
 
     declineTrade(trade) {
-      trade.set('rejectedOn', moment().unix());
-      trade.save().then(() => {
-        window.location = '/';
+
+      // look for changes in trade before submitting.
+      this.get('store').findRecord('trade-request', trade.id).then(tr => {
+
+        // make sure trade is still available.
+        if (Ember.isNone(tr.get('rejectedOn')) && Ember.isNone(tr.get('acceptedOn'))) {
+          trade.set('rejectedOn', moment().unix());
+          trade.save().then(() => {
+            window.location = '/';
+          });
+        } else {
+          window.location = '/';
+        }
       });
     }
   }

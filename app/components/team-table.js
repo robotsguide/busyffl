@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const kClosedRosterPos = [10, 20, 30, 40, 50, 60, 80, 90];
+const kClosedRosterPos = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 
 export default Ember.Component.extend({
   classNames: ['v-team-table'],
@@ -34,18 +34,10 @@ export default Ember.Component.extend({
      return item.get('rosterPosition') >= 100;
    });
 
-   let last = 0;
    bench.forEach(item => {
-     if(last === item.get('rosterPosition')) {
-       item.set('rosterPosition', last+1);
-       item.save();
-     }
-
      if(item.get('playerId') && position === item.get('rosterPosition')) {
        position = position + 1;
      }
-
-     last = item.get('rosterPosition');
    });
 
    return position;
@@ -60,8 +52,8 @@ export default Ember.Component.extend({
           ros.set('canPlace', false);
         } else if (kClosedRosterPos.indexOf(pos) === -1) {
           ros.set('canPlace', true);
-        } else if ((movePos === 10 && pos === 10) || (movePos === 20 && (pos === 20 || pos === 30)) ||
-                  (movePos === 30 && (pos === 40 || pos === 50)) || (movePos === 40 && pos === 60) ||
+        } else if ((movePos === 10 && pos === 10) || (movePos === 20 && (pos === 20 || pos === 30 || pos === 70)) ||
+                  (movePos === 30 && (pos === 40 || pos === 50 || pos === 70)) || (movePos === 40 && (pos === 60 || pos === 70)) ||
                   (movePos === 50 && pos === 80) || (movePos === 60 && pos === 90)) {
           ros.set('canPlace', true);
         } else {
