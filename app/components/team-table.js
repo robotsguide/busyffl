@@ -56,7 +56,9 @@ export default Ember.Component.extend({
       const movePos = roster.get('player.type');
       this.get('model.team.teamRosters').forEach(ros => {
         const pos = ros.get('rosterPosition');
-        if (kClosedRosterPos.indexOf(pos) === -1) {
+        if (roster.id === ros.id) {
+          ros.set('canPlace', false);
+        } else if (kClosedRosterPos.indexOf(pos) === -1) {
           ros.set('canPlace', true);
         } else if ((movePos === 10 && pos === 10) || (movePos === 20 && (pos === 20 || pos === 30)) ||
                   (movePos === 30 && (pos === 40 || pos === 50)) || (movePos === 40 && pos === 60) ||
