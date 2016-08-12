@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('waivers');
   this.route('login');
   this.route('settings');
+  this.route('trades');
 });
 
 export default Router;

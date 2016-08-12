@@ -27,6 +27,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       this.transitionTo('players');
     },
 
+    trades() {
+      this.transitionTo('trades');
+    },
+
     settings() {
       this.transitionTo('settings');
     },

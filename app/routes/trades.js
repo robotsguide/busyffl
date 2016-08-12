@@ -1,33 +1,14 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import setRoster from 'busyffl/utils/set-roster';
+//import setRoster from 'busyffl/utils/set-roster';
 import loadAll from 'busyffl/utils/load-all';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
+
   model() {
-    const auth = this.get('session.session.content.authenticated');
     return loadAll(this.store).then(data => {
-      const member = data.members.findBy('username', auth.username);
-      const team = data.teams.findBy('ownerId', member.id);
-      const picks = data.draftPicks.filterBy('teamId', team.id).sortBy('roundNumber');
-      const roster = data.teamRosters.filterBy('teamId', team.id).sortBy('rosterPosition');
-
-      setRoster(roster, data.players);
-
-      team.set('teamRosters', roster);
-      team.set('draftPicks', picks);
-
-      member.set('team', team);
-
-      return Ember.RSVP.hash({
-        member: member,
-        trades: this.store.findAll('trade-request')
-      }).then(models => {
-        let requests = models.trades.filterBy('rejectedOn', null);
-        requests = requests.filterBy('acceptedOn', null);
-        requests = requests.filterBy('toTeamId', team.id);
-
-        return {member: models.member, trades: this.getTradeData(requests, data)};
+      return this.store.findAll('trade-request').then(trades => {
+        return this.getTradeData(trades, data);
       });
     });
   },

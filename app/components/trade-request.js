@@ -8,10 +8,11 @@ export default Ember.Component.extend({
   model: null,
 
   players: null,
+  disabled: false,
 
-  findEmptyRosterSpot(team) {
+  findEmptyRosterSpot(rosters) {
     let roster;
-    team.get('teamRosters').forEach(ros => {
+    rosters.forEach(ros => {
       if (ros.get('rosterPosition') >= 100) {
         if (Ember.isNone(ros.get('playerId')) && Ember.isNone(roster)) {
           roster = ros;
@@ -45,12 +46,9 @@ export default Ember.Component.extend({
    return position;
   },
 
-  addToRoster(roster, team) {
-    // get roster player
-    const player = this.get('players').findBy('id', roster.get('playerId'));
-
+  addToRoster(player, team) {
     // get a current open roster spot or create a new one.
-    let newRoster = this.findEmptyRosterSpot(team);
+    let newRoster = this.findEmptyRosterSpot(team.get('teamRosters'));
     if(Ember.isNone(newRoster)) {
       const pos = this.getOpenPosition(team.get('teamRosters'));
       newRoster = this.get('store').createRecord('team-roster', {
@@ -66,7 +64,7 @@ export default Ember.Component.extend({
     // save the roster
     return newRoster.save().then(ros => {
       // set the players roster id
-      player.set('rosterId', roster.id);
+      player.set('rosterId', ros.id);
 
       // save the player
       return player.save().then(pl => {
@@ -80,18 +78,22 @@ export default Ember.Component.extend({
     });
   },
 
-  movePlayerRosters(rosters, team) {
+  movePlayerRosters(players, team) {
     const rosterPromise = [];
-    rosters.forEach(ros => {
-      // add to new team roster
-      rosterPromise.push(this.addToRoster(ros, team));
+    players.forEach(player => {
+      const ros = this.get('rosters').findBy('playerId', player.id);
 
-      // remove old roster
-      if (ros.get('rosterPosition') >= 105) {
-        rosterPromise.push(ros.destroyRecord());
-      } else {
-        ros.set('playerId', null);
-        rosterPromise.push(ros.save());
+      // add to new team roster
+      rosterPromise.push(this.addToRoster(player, team));
+
+      if(!Ember.isNone(ros)) {
+        // remove old roster
+        if (ros.get('rosterPosition') >= 105) {
+          rosterPromise.push(ros.destroyRecord());
+        } else {
+          ros.set('playerId', null);
+          rosterPromise.push(ros.save());
+        }
       }
     });
 
@@ -101,14 +103,8 @@ export default Ember.Component.extend({
   moveDraftPicks(picks, teamId) {
     const picksPromise = [];
     picks.forEach(pick => {
-      const newPick = this.get('store').createRecord('draft-pick', {
-        teamId: teamId,
-        roundNumber: pick.get('roundNumber'),
-        pickNumber: pick.get('pickNumber')
-      });
-
-      picksPromise.push(newPick.save());
-      picksPromise.push(pick.destroyRecord());
+      pick.set('teamId', teamId);
+      picksPromise.push(pick.save());
     });
 
     return Ember.RSVP.all(picksPromise);
@@ -122,6 +118,7 @@ export default Ember.Component.extend({
       players: this.get('store').findAll('player')
     }).then(data => {
       this.set('players', data.players);
+      this.set('rosters', data.rosters);
 
       return {
         toTeam: this.getTeamRoster(data.toTeam, data.rosters, data.players),
@@ -152,21 +149,20 @@ export default Ember.Component.extend({
       trade.set('acceptedOn', moment().unix());
 
       // move picks: fromTeam -> toTeam
-      const toTeamPicks = this.moveDraftPicks(trade.get('fromPickModels'), data.toTeam.id);
+      return this.moveDraftPicks(trade.get('fromPickModels'), data.toTeam.id).then(() => {
 
-      // move picks: toTeam -> fromTeam
-      const fromTeamPicks = this.moveDraftPicks(trade.get('toPickModels'), data.fromTeam.id);
+        // move picks: toTeam -> fromTeam
+        return this.moveDraftPicks(trade.get('toPickModels'), data.fromTeam.id).then(() => {
 
-      // move trades: fromTeam -> toTeam
-      const toTeamTrades = this.movePlayerRosters(trade.get('fromPlayerModels'), data.toTeam);
+          // move trades: fromTeam -> toTeam
+          return this.movePlayerRosters(trade.get('fromPlayerModels'), data.toTeam).then(() => {
 
-      // move trade: toTeam -> fromTeam
-      const fromTeamTrades = this.movePlayerRosters(trade.get('toPlayerModels'), data.fromTeam);
-
-      // wait for all trades to complete
-      return Ember.RSVP.hash({toTeamPicks, fromTeamPicks, toTeamTrades, fromTeamTrades}).then(() => {
-        // save the trade
-        return trade.save();
+            // move trade: toTeam -> fromTeam
+            return this.movePlayerRosters(trade.get('toPlayerModels'), data.fromTeam).then(() => {
+              return trade.save();
+            });
+          });
+        });
       });
     });
   },

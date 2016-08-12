@@ -1,0 +1,11 @@
+
+
+.v-trades {
+  width: 100%;
+
+  & > div {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}

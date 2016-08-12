@@ -85,8 +85,8 @@ export default Ember.Component.extend({
       const fromPick = [];
       const toPick = [];
 
-      this.get('tradeOwnedPlayers').forEach(item => fromPlayer.push(item.id));
-      this.get('tradePlayers').forEach(item => toPlayer.push(item.id));
+      this.get('tradeOwnedPlayers').forEach(item => fromPlayer.push(item.get('playerId')));
+      this.get('tradePlayers').forEach(item => toPlayer.push(item.get('playerId')));
       this.get('tradeOwnedPicks').forEach(item => fromPick.push(item.id));
       this.get('tradePicks').forEach(item => toPick.push(item.id));
 

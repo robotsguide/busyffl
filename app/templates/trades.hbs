@@ -1,0 +1,10 @@
+
+<div class="v-trades">
+  <header>Trading Feed</header>
+
+  <div>
+    {{#each model as |trade|}}
+      {{trade-request model=trade disabled=true}}
+    {{/each}}
+  </div>
+</div>

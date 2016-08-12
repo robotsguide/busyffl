@@ -15,10 +15,18 @@ export default Model.extend({
   rosterId: DS.attr('string'),
   name: DS.attr('string'),
   postition: DS.attr('string'),
+  position: DS.attr('string'),
   team: DS.attr('string'),
   cost: DS.attr('number'),
   type: DS.attr('number'),
   ranking: DS.attr('number'),
+
+  fixPosition: Ember.on('init', Ember.observer('position', 'postition', function() {
+    if(Ember.isNone(this.get('position')) && !Ember.isNone(this.get('postition'))) {
+      this.set('position', this.get('postition'));
+      this.save();
+    }
+  })),
 
   priceTag: Ember.computed('cost', function() {
     let price = '';

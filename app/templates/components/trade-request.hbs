@@ -1,25 +1,37 @@
 
 <div class="title">
-  <span>You have a new trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
-
-  <span>
-    <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
-    <a class="button red" {{action 'declineTrade' model}}>Decline</a>
-  </span>
+  {{#unless disabled}}
+    <span>You have a new trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
+    <span>
+      <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
+      <a class="button red" {{action 'declineTrade' model}}>Decline</a>
+    </span>
+  {{else}}
+    <span><b>{{model.fromTeam.franchiseName}}</b> requested a trade with <b>{{model.toTeam.franchiseName}}</b></span>
+    <span>
+      {{#if model.acceptedOn}}
+        <div class="accepted">Trade Accepted</div>
+      {{else if model.rejectedOn}}
+        <div class="rejected">Trade Declined</div>
+      {{else}}
+        <div class="pending">Trade Pending</div>
+      {{/if}}
+    </span>
+  {{/unless}}
 </div>
 
 <div class="body">
   <div class="players">
     <label>Trade you the following players:</label>
     {{#each model.fromPlayerModels as |player|}}
-      <div>{{player.player.positionSymbol}} {{player.playerName}}</div>
+      <div>{{player.position}} {{player.name}}</div>
     {{else}}
       <span>None</span>
     {{/each}}
 
     <label>For your players:</label>
     {{#each model.toPlayerModels as |player|}}
-      <div>{{player.player.positionSymbol}} {{player.playerName}}</div>
+      <div>{{player.position}} {{player.name}}</div>
     {{else}}
       <span>None</span>
     {{/each}}
