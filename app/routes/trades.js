@@ -30,13 +30,17 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       const fromPlayerArray = [];
       fromPlayer.forEach(id => {
         const player = data.players.findBy('id', id);
-        fromPlayerArray.pushObject(player);
+        if(!Ember.isNone(player)) {
+          fromPlayerArray.pushObject(player);
+        }
       });
 
       const toPlayerArray = [];
       toPlayer.forEach(id => {
         const player = data.players.findBy('id', id);
-        toPlayerArray.pushObject(player);
+        if(!Ember.isNone(player)) {
+          toPlayerArray.pushObject(player);
+        }
       });
 
       const fromPickArray = [];

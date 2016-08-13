@@ -2,20 +2,21 @@
 .v-trade-request {
   width: 100%;
   display: inline-block;
-  border: 1px solid #aaa;
-  background: #fafafa;
+  //border: 1px solid #aaa;
+  background: $color1;
   margin: 0 0 25px;
   border-radius: 3px;
 
   & > .title {
-    width: 100%;
+    width: 102%;
     height: 52px;
     padding: 10px 15px;
     font: 16px/32px Verdana;
     box-sizing: border-box;
-    border-bottom: 1px solid #aaa;
-    background: #f3f3f3;
-    color: #555;
+    border-bottom: 1px solid $color6;
+    background: $color3;
+    margin: 0 0 0 -1%;
+    color: $color1;
 
     & > span {
       float: left;
@@ -63,27 +64,28 @@
         width: 100%;
         margin: 0 0 10px 0;
         font: 16px/1 Verdana;
-        color: #666;
+        color: $color9;
       }
 
       & > div {
         display: inline-block;
         float: left;
         padding: 8px 15px;
-        margin: 0 0 10px 5px;
-        font: bold 12px/1 Verdana;
+        margin: 0 10px 10px 0px;
+        font: 12px/1 Verdana;
         box-sizing: border-box;
-        border: 1px solid #ccc;
+        //border: 1px solid #ccc;
         border-radius: 20px;
         text-align: center;
-        color: #666;
-        background: #f2f9fb;
+        color: $color4;
+        background: $color12;
         letter-spacing: .5px;
       }
 
       & > span {
         float: left;
         margin: 0 0 10px 10px;
+        color: $color6
       }
     }
   }

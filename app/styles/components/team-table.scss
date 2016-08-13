@@ -29,7 +29,21 @@
 
         &:last-of-type {
           float: right;
-          padding: 12px 0
+          padding: 12px 0;
+
+          & > a {
+            float: right;
+
+            &.disable {
+              cursor: not-allowed;
+            }
+          }
+
+          & > span {
+            float: left;
+            margin: 10px 10px 0 0;
+            font: 12px/1 Verdana;
+          }
         }
       }
     }

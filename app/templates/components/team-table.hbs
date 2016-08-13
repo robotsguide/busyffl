@@ -8,7 +8,13 @@
         {{#if moveState}}
           <a class="button red" {{action 'cancelMove'}}>Cancel</a>
         {{else}}
-          <a class="button green" {{action 'trade'}}>Trade</a>
+          {{#if isBeforeTrade}}
+            <a class="button green {{if canMakeTrades '' ' disable'}}" title="{{tradeTitleString}}">Trading starts {{timeTilTrade}}</a>
+          {{else if canMakeTrades}}
+            <a class="button green {{if canMakeTrades '' ' disable'}}" {{action 'trade'}} title="{{tradeTitleString}}">Trade</a>
+          {{else}}
+            <span>Trading Locked</span>
+          {{/if}}
         {{/if}}
       {{/if}}
     </span>

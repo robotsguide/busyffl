@@ -10,6 +10,14 @@ export default Ember.Component.extend({
   players: null,
   disabled: false,
 
+  hasFromPlayers: Ember.computed('model.fromPlayerModels.[]', 'model.fromPickModels.[]', function() {
+    return (this.get('model.fromPlayerModels.length') > 0 || this.get('model.fromPickModels.length') > 0);
+  }),
+
+  hasToPlayers: Ember.computed('model.toPlayerModels.[]', 'model.toPickModels.[]', function() {
+    return (this.get('model.toPlayerModels.length') > 0 || this.get('model.toPickModels.length') > 0);
+  }),
+
   findEmptyRosterSpot(rosters) {
     let roster;
     rosters.forEach(ros => {

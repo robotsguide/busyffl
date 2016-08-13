@@ -4,13 +4,13 @@
     {{#if model.isRequested}}
       <span>You have a trade request from <b>{{model.fromTeam.franchiseName}}</b></span>
       <span>
-        <a class="button blue" {{action 'acceptTrade' model}}>Accept</a>
+        <a class="button green" {{action 'acceptTrade' model}}>Accept</a>
         <a class="button red" {{action 'declineTrade' model}}>Decline</a>
       </span>
     {{else}}
       <span>You requested a trade with <b>{{model.toTeam.franchiseName}}</b></span>
       <span>
-        <a class="button blue" {{action 'declineTrade' model}}>Cancel Request</a>
+        <a class="button red" {{action 'declineTrade' model}}>Cancel Request</a>
       </span>
     {{/if}}
   {{else}}
@@ -29,51 +29,30 @@
 </div>
 
 <div class="body">
-  <div class="players">
-    {{#unless disabled}}
-      <label>Trade you the following players:</label>
+  <div>
+    <label>Trade:</label>
+    {{#if hasFromPlayers}}
+      {{#each model.fromPlayerModels as |player|}}
+        <div>{{player.position}} {{player.name}}</div>
+      {{/each}}
+      {{#each model.fromPickModels as |pick|}}
+        <div>Round {{pick.roundNumber}} Pick - {{pick.pickNumber}} Overall</div>
+      {{/each}}
     {{else}}
-      <label>Trading players:</label>
-    {{/unless}}
-    {{#each model.fromPlayerModels as |player|}}
-      <div>{{player.position}} {{player.name}}</div>
-    {{else}}
-      <span>None</span>
-    {{/each}}
-
-    {{#unless disabled}}
-      <label>For your players:</label>
-    {{else}}
-      <label>For players:</label>
-    {{/unless}}
-    {{#each model.toPlayerModels as |player|}}
-      <div>{{player.position}} {{player.name}}</div>
-    {{else}}
-      <span>None</span>
-    {{/each}}
+      <span>Nothing</span>
+    {{/if}}
   </div>
-
-  <div class="picks">
-    {{#unless disabled}}
-      <label>Trade you the following picks:</label>
+  <div>
+    <label>For:</label>
+    {{#if hasToPlayers}}
+      {{#each model.toPlayerModels as |player|}}
+        <div>{{player.position}} {{player.name}}</div>
+      {{/each}}
+      {{#each model.toPickModels as |pick|}}
+        <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
+      {{/each}}
     {{else}}
-      <label>Trading picks:</label>
-    {{/unless}}
-    {{#each model.fromPickModels as |pick|}}
-      <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
-    {{else}}
-      <span>None</span>
-    {{/each}}
-
-    {{#unless disabled}}
-      <label>For your picks:</label>
-    {{else}}
-      <label>For picks:</label>
-    {{/unless}}
-    {{#each model.toPickModels as |pick|}}
-      <div>Round {{pick.roundNumber}} Pick {{pick.pickNumber}}</div>
-    {{else}}
-      <span>None</span>
-    {{/each}}
+      <span>Nothing</span>
+    {{/if}}
   </div>
 </div>

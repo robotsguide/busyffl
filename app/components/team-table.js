@@ -1,6 +1,10 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 const kClosedRosterPos = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+const startTradeTime = 1471219200;
+const endTradeTime = 1472428799;
 
 export default Ember.Component.extend({
   classNames: ['v-team-table'],
@@ -14,6 +18,54 @@ export default Ember.Component.extend({
   showTradeDialog: false,
 
   moveState: null,
+
+  init() {
+    this._super();
+
+    this.runTimer();
+  },
+
+  runTimer() {
+    this.set('time', moment().unix());
+
+    setTimeout(() => {
+      this.runTimer();
+    }, 1000);
+  },
+
+  now: Ember.computed('time', function() {
+    return moment().add(moment().utcOffset(), 'minute').unix();
+  }),
+
+  timeTilTrade: Ember.computed('now', function() {
+    return moment.utc(this.get('now')*1000).to(startTradeTime*1000);
+  }),
+
+  startTradeDate: Ember.computed(function() {
+    return moment(startTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
+  }),
+
+  endTradeDate: Ember.computed(function() {
+    return moment(endTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
+  }),
+
+  canMakeTrades: Ember.computed('now', function() {
+    return (this.get('now') > startTradeTime && this.get('now') < endTradeTime);
+  }),
+
+  isBeforeTrade: Ember.computed('now', function() {
+    return (this.get('now') < startTradeTime);
+  }),
+
+  tradeTitleString: Ember.computed(function() {
+    if (this.get('isBeforeTrade')) {
+      return `Trades are disabled until ${this.get('startTradeDate')}`;
+    } else if (this.get('canMakeTrades')) {
+      return `Trades are available until ${this.get('endTradeDate')}`;
+    } else {
+      return 'Trades are disabled';
+    }
+  }),
 
   findEmptyRosterSpot(team) {
     let roster;
@@ -110,7 +162,9 @@ export default Ember.Component.extend({
     },
 
     trade() {
-      this.set('showTradeDialog', true);
+      if(this.get('canMakeTrades')) {
+        this.set('showTradeDialog', true);
+      }
     },
 
     cancelTrade() {
