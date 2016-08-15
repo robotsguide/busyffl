@@ -7,178 +7,188 @@ const startTradeTime = 1471219200;
 const endTradeTime = 1472428799;
 
 export default Ember.Component.extend({
-  classNames: ['v-team-table'],
+	classNames: ['v-team-table'],
 
-  store: Ember.inject.service('store'),
-  model: null,
+	store: Ember.inject.service('store'),
+	model: null,
 
-  owner: false,
+	owner: false,
+	currentTeam: null,
 
-  showDropDialog: false,
-  showTradeDialog: false,
+	showDropDialog: false,
+	showTradeDialog: false,
 
-  moveState: null,
+	moveState: null,
 
-  init() {
-    this._super();
+	init() {
+		this._super();
 
-    this.runTimer();
-  },
+		this.runTimer();
+	},
 
-  runTimer() {
-    this.set('time', moment().unix());
+	runTimer() {
+		this.set('time', moment().unix());
 
-    setTimeout(() => {
-      this.runTimer();
-    }, 1000);
-  },
+		setTimeout(() => {
+			this.runTimer();
+		}, 1000);
+	},
 
-  now: Ember.computed('time', function() {
-    return moment().add(moment().utcOffset(), 'minute').unix();
-  }),
+	now: Ember.computed('time', function() {
+		return moment().add(moment().utcOffset(), 'minute').unix();
+	}),
 
-  timeTilTrade: Ember.computed('now', function() {
-    return moment.utc(this.get('now')*1000).to(startTradeTime*1000);
-  }),
+	timeTilTrade: Ember.computed('now', function() {
+		return moment.utc(this.get('now')*1000).to(startTradeTime*1000);
+	}),
 
-  startTradeDate: Ember.computed(function() {
-    return moment(startTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
-  }),
+	startTradeDate: Ember.computed(function() {
+		return moment(startTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
+	}),
 
-  endTradeDate: Ember.computed(function() {
-    return moment(endTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
-  }),
+	endTradeDate: Ember.computed(function() {
+		return moment(endTradeTime*1000).subtract(moment().utcOffset(), 'minute').format('[The] Do MMM. [@]hh:mm A');
+	}),
 
-  canMakeTrades: Ember.computed('now', function() {
-    return (this.get('now') > startTradeTime && this.get('now') < endTradeTime);
-  }),
+	canMakeTrades: Ember.computed('now', function() {
+		return (this.get('now') > startTradeTime && this.get('now') < endTradeTime);
+	}),
 
-  isBeforeTrade: Ember.computed('now', function() {
-    return (this.get('now') < startTradeTime);
-  }),
+	isBeforeTrade: Ember.computed('now', function() {
+		return (this.get('now') < startTradeTime);
+	}),
 
-  tradeTitleString: Ember.computed(function() {
-    if (this.get('isBeforeTrade')) {
-      return `Trades are disabled until ${this.get('startTradeDate')}`;
-    } else if (this.get('canMakeTrades')) {
-      return `Trades are available until ${this.get('endTradeDate')}`;
-    } else {
-      return 'Trades are disabled';
-    }
-  }),
+	tradeTitleString: Ember.computed(function() {
+		if (this.get('isBeforeTrade')) {
+			return `Trades are disabled until ${this.get('startTradeDate')}`;
+		} else if (this.get('canMakeTrades')) {
+			return `Trades are available until ${this.get('endTradeDate')}`;
+		} else {
+			return 'Trades are disabled';
+		}
+	}),
 
-  findEmptyRosterSpot(team) {
-    let roster;
-    team.get('teamRosters').forEach(ros => {
-      if (ros.get('rosterPosition') >= 100) {
-        if (Ember.isNone(ros.get('playerId')) && Ember.isNone(roster)) {
-          roster = ros;
-        }
-      }
-    });
+	findEmptyRosterSpot(team) {
+		let roster;
+		team.get('teamRosters').forEach(ros => {
+			if (ros.get('rosterPosition') >= 100) {
+				if (Ember.isNone(ros.get('playerId')) && Ember.isNone(roster)) {
+					roster = ros;
+				}
+			}
+		});
 
-    return roster;
-  },
+		return roster;
+	},
 
-  getOpenPosition(roster) {
-   let position = 100;
-   const bench = roster.filter(item => {
-     return item.get('rosterPosition') >= 100;
-   });
+	getOpenPosition(roster) {
+	 let position = 100;
+	 const bench = roster.filter(item => {
+		 return item.get('rosterPosition') >= 100;
+	 });
 
-   bench.forEach(item => {
-     if(item.get('playerId') && position === item.get('rosterPosition')) {
-       position = position + 1;
-     }
-   });
+	 bench.forEach(item => {
+		 if(item.get('playerId') && position === item.get('rosterPosition')) {
+			 position = position + 1;
+		 }
+	 });
 
-   return position;
-  },
+	 return position;
+	},
 
-  actions: {
-    move(roster) {
-      const movePos = roster.get('player.type');
-      this.get('model.team.teamRosters').forEach(ros => {
-        const pos = ros.get('rosterPosition');
-        if (roster.id === ros.id) {
-          ros.set('canPlace', false);
-        } else if (kClosedRosterPos.indexOf(pos) === -1) {
-          ros.set('canPlace', true);
-        } else if ((movePos === 10 && pos === 10) || (movePos === 20 && (pos === 20 || pos === 30 || pos === 70)) ||
-                  (movePos === 30 && (pos === 40 || pos === 50 || pos === 70)) || (movePos === 40 && (pos === 60 || pos === 70)) ||
-                  (movePos === 50 && pos === 80) || (movePos === 60 && pos === 90)) {
-          ros.set('canPlace', true);
-        } else {
-          ros.set('canPlace', false);
-        }
-      });
+	isTradeableTeam: Ember.computed('owner', function(){
+		if (this.get('owner')) {
+			return false;
+		} else {
+			return true;
+		}
 
-      this.set('moveState', roster);
-    },
+	}),
 
-    moveTo(roster) {
-      if (!Ember.isNone(roster)) {
-        const promise = [];
-        if (!Ember.isNone(roster.get('player'))) {
-          let newState = this.findEmptyRosterSpot(this.get('model.team'));
-          if (Ember.isNone(newState)) {
-            const pos = this.getOpenPosition(this.get('model.team.teamRosters'));
-            newState = this.get('store').createRecord('team-roster', {
-              teamId: this.get('model.team.id'),
-              rosterPosition: pos,
-            });
-          }
+	actions: {
+		move(roster) {
+			const movePos = roster.get('player.type');
+			this.get('model.team.teamRosters').forEach(ros => {
+				const pos = ros.get('rosterPosition');
+				if (roster.id === ros.id) {
+					ros.set('canPlace', false);
+				} else if (kClosedRosterPos.indexOf(pos) === -1) {
+					ros.set('canPlace', true);
+				} else if ((movePos === 10 && pos === 10) || (movePos === 20 && (pos === 20 || pos === 30 || pos === 70)) ||
+									(movePos === 30 && (pos === 40 || pos === 50 || pos === 70)) || (movePos === 40 && (pos === 60 || pos === 70)) ||
+									(movePos === 50 && pos === 80) || (movePos === 60 && pos === 90)) {
+					ros.set('canPlace', true);
+				} else {
+					ros.set('canPlace', false);
+				}
+			});
 
-          newState.set('playerId', roster.get('playerId'));
-          newState.set('markedForDrop', roster.get('markedForDrop'));
+			this.set('moveState', roster);
+		},
 
-          promise.push(newState.save());
-        }
+		moveTo(roster) {
+			if (!Ember.isNone(roster)) {
+				const promise = [];
+				if (!Ember.isNone(roster.get('player'))) {
+					let newState = this.findEmptyRosterSpot(this.get('model.team'));
+					if (Ember.isNone(newState)) {
+						const pos = this.getOpenPosition(this.get('model.team.teamRosters'));
+						newState = this.get('store').createRecord('team-roster', {
+							teamId: this.get('model.team.id'),
+							rosterPosition: pos,
+						});
+					}
 
-        roster.set('playerId', this.get('moveState.playerId'));
-        roster.set('markedForDrop', this.get('moveState.markedForDrop'));
+					newState.set('playerId', roster.get('playerId'));
+					newState.set('markedForDrop', roster.get('markedForDrop'));
 
-        promise.push(roster.save());
-        if(this.get('moveState.rosterPosition') >= 105) {
-          promise.push(this.get('moveState').destroyRecord());
-        } else {
-          this.set('moveState.playerId', null);
-          promise.push(this.get('moveState').save());
-        }
+					promise.push(newState.save());
+				}
 
-        Ember.RSVP.all(promise).then(() => {
-          this.set('moveState', null);
-          window.location = window.location.pathname;
-        });
-      }
-    },
+				roster.set('playerId', this.get('moveState.playerId'));
+				roster.set('markedForDrop', this.get('moveState.markedForDrop'));
 
-    cancelMove() {
-      this.get('model.team.teamRosters').forEach(ros => {
-        ros.set('canPlace', false);
-      });
+				promise.push(roster.save());
+				if(this.get('moveState.rosterPosition') >= 105) {
+					promise.push(this.get('moveState').destroyRecord());
+				} else {
+					this.set('moveState.playerId', null);
+					promise.push(this.get('moveState').save());
+				}
 
-      this.set('moveState', null);
-    },
+				Ember.RSVP.all(promise).then(() => {
+					this.set('moveState', null);
+					window.location = window.location.pathname;
+				});
+			}
+		},
 
-    trade() {
-      if(this.get('canMakeTrades')) {
-        this.set('showTradeDialog', true);
-      }
-    },
+		cancelMove() {
+			this.get('model.team.teamRosters').forEach(ros => {
+				ros.set('canPlace', false);
+			});
 
-    cancelTrade() {
-      this.set('showTradeDialog', false);
-    },
+			this.set('moveState', null);
+		},
 
-    drop(player) {
-      player.set('markedForDrop', true);
-      player.save();
-    },
+		trade() {
+			if(this.get('canMakeTrades')) {
+				this.set('showTradeDialog', true);
+			}
+		},
 
-    undrop(player) {
-      player.set('markedForDrop', false);
-      player.save();
-    }
-  }
+		cancelTrade() {
+			this.set('showTradeDialog', false);
+		},
+
+		drop(player) {
+			player.set('markedForDrop', true);
+			player.save();
+		},
+
+		undrop(player) {
+			player.set('markedForDrop', false);
+			player.save();
+		}
+	}
 });

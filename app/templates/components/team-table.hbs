@@ -1,78 +1,77 @@
 
 
 <div class="team">
-  <header>
-    <span>{{model.team.franchiseName}}</span>
-    <span class="options">
-      {{#if owner}}
-        {{#if moveState}}
-          <a class="button red" {{action 'cancelMove'}}>Cancel</a>
-        {{else}}
-          {{#if isBeforeTrade}}
-            <a class="button green {{if canMakeTrades '' ' disable'}}" title="{{tradeTitleString}}">Trading starts {{timeTilTrade}}</a>
-          {{else if canMakeTrades}}
-            <a class="button green {{if canMakeTrades '' ' disable'}}" {{action 'trade'}} title="{{tradeTitleString}}">Trade</a>
-          {{else}}
-            <span>Trading Locked</span>
-          {{/if}}
-        {{/if}}
-      {{/if}}
-    </span>
-  </header>
+	<header>
+		<span>{{model.team.franchiseName}}</span>
+		<span class="options">
+			{{#if owner}}
+				{{#if moveState}}
+					<a class="button red" {{action 'cancelMove'}}>Cancel</a>
+				{{/if}}
+			{{/if}}
+			{{#if isBeforeTrade}}
+				<a class="button green {{if canMakeTrades '' ' disable'}}" title="{{tradeTitleString}}">Trading starts {{timeTilTrade}}</a>
+			{{else if canMakeTrades}}
+				<a class="button green {{if canMakeTrades '' ' disable'}}" {{action 'trade'}} title="{{tradeTitleString}}">Trade</a>
+			{{else}}
+				<span>Trading Locked</span>
+			{{/if}}
+		</span>
+	</header>
 
-  <div class="roster">
-    {{#each model.team.teamRosters as |roster|}}
-      <div class="player{{if roster.player '' ' disable'}}{{if roster.markedForDrop ' inactive'}}">
-        <label>{{roster.positionSymbol}}</label>
-        <span class="name">{{roster.playerName}}</span>
-        <span class="cost">{{roster.player.priceTag}}</span>
-        <span>
-          {{#if owner}}
-            {{#if moveState}}
-              {{#if roster.canPlace}}
-                <a class="button select" {{action 'moveTo' roster}}>Select</a>
-              {{/if}}
-            {{else}}
-              <a class="button" {{action 'move' roster}}>Move</a>
-              {{#if roster.markedForDrop}}
-                <a class="button" {{action 'undrop' roster}}>Activate</a>
-              {{else}}
-                <a class="button" {{action 'drop' roster}}>Deactivate</a>
-              {{/if}}
-            {{/if}}
-          {{/if}}
-        </span>
-      </div>
-    {{/each}}
-  </div>
-  <div class="right">
-    <div class="total">
-      <div><span>Active Salary</span><span>${{model.team.totalActiveSalary}}</span></div>
-      <div><span>Team Salary</span><span>${{model.team.totalSalary}}</span></div>
-    </div>
-    <div class="picks">
-      <div>
-        {{#each model.team.draftPicks as |pick|}}
-          <div>
-            <label>Round {{pick.roundNumber}}</label>
-            <span>{{pick.pickNumber}}</span>
-          </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
+	<div class="roster">
+		{{#each model.team.teamRosters as |roster|}}
+			<div class="player{{if roster.player '' ' disable'}}{{if roster.markedForDrop ' inactive'}}">
+				<label>{{roster.positionSymbol}}</label>
+				<span class="name">{{roster.playerName}}</span>
+				<span class="cost">{{roster.player.priceTag}}</span>
+				<span>
+					{{#if owner}}
+						{{#if moveState}}
+							{{#if roster.canPlace}}
+								<a class="button select" {{action 'moveTo' roster}}>Select</a>
+							{{/if}}
+						{{else}}
+							<a class="button" {{action 'move' roster}}>Move</a>
+							{{#if roster.markedForDrop}}
+								<a class="button" {{action 'undrop' roster}}>Activate</a>
+							{{else}}
+								<a class="button" {{action 'drop' roster}}>Deactivate</a>
+							{{/if}}
+						{{/if}}
+					{{/if}}
+				</span>
+			</div>
+		{{/each}}
+	</div>
+	<div class="right">
+		<div class="total">
+			<div><span>Active Salary</span><span>${{model.team.totalActiveSalary}}</span></div>
+			<div><span>Team Salary</span><span>${{model.team.totalSalary}}</span></div>
+		</div>
+		<div class="picks">
+			<div>
+				{{#each model.team.draftPicks as |pick|}}
+					<div>
+						<label>Round {{pick.roundNumber}}</label>
+						<span>{{pick.pickNumber}}</span>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
 </div>
 
 {{#if showTradeDialog}}
-  {{dialogs.trade-dialog onClose="cancelTrade" model=model.team}}
+	{{dialogs.trade-dialog onClose="cancelTrade" selectedTeam=(if isTradeableTeam model.team) isTeamPageTrade=isTradeableTeam}}
 {{/if}}
 
 {{#if showDropDialog}}
-  {{#modal-dialog close="cancelDrop"}}
-    <div class="v-drop-dialog">
-      <h1>Dropping a player cannot be undone are you sure you want to drop this player?</h1>
-      <a class="button red" {{action 'dropPlayer'}}>Drop</a>
-      <a class="button grey" {{action 'cancelDrop'}}>Cancel</a>
-    </div>
-  {{/modal-dialog}}
+	{{#modal-dialog close="cancelDrop"}}
+		<div class="v-drop-dialog">
+			<h1>Dropping a player cannot be undone are you sure you want to drop this player?</h1>
+			<a class="button red" {{action 'dropPlayer'}}>Drop</a>
+			<a class="button grey" {{action 'cancelDrop'}}>Cancel</a>
+		</div>
+	{{/modal-dialog}}
 {{/if}}
