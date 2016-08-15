@@ -12,7 +12,9 @@
 							{{/unless}}
 						</div>
 					</div>
+					<div {{action 'openTeam' team.ownerId}}>
 						{{roster-list model=team selection=false}}
+					</div>
 
 						{{!picks-list model=team}}
 				</div>
