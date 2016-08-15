@@ -7,11 +7,14 @@ export default Ember.Controller.extend({
   team: null,
 
   actions: {
-  //  assignRoster(player) {
-  //    console.log(player);
-  //    this.set('openRoster', true);
-  //    this.set('player', player);
-  //  },
+    assignRoster(player) {
+      return player;
+    },
+
+    //    console.log(player);
+    //    this.set('openRoster', true);
+    //    this.set('player', player);
+    //},
 
   //  choosePosition(team) {
   //    const roster = this.get('model.rosters').findBy('teamId', team.id);

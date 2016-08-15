@@ -138,7 +138,7 @@ body {
   &:after {
     position: absolute;
     content: 'Syncing data...';
-    top: 76px;
+    top: -100px;
     right: 20px;
     padding: 20px 30px;
     font: 22px/1 Verdana;
@@ -156,6 +156,7 @@ body {
 
   &.syncing {
     &:after {
+      top: 76px;
       opacity: 1;
     }
   }
