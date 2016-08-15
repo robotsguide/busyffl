@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import moment from 'moment';
+import notifySlack from 'busyffl/utils/notify-slack';
 
 export default Ember.Component.extend({
   classNames: ['v-trade-request'],
@@ -167,13 +168,48 @@ export default Ember.Component.extend({
 
             // move trade: toTeam -> fromTeam
             return this.movePlayerRosters(trade.get('toPlayerModels'), data.fromTeam).then(() => {
-              return trade.save();
+              return trade.save().then(() => {
+								return this.slack('accepted', trade);
+							});
             });
           });
         });
       });
     });
   },
+
+	slack(type, tradeModel) {
+		const tradingTeam = tradeModel.get('fromTeam.slackName');
+		const receivingTeam = tradeModel.get('toTeam.slackName');
+
+		let trade = '';
+		tradeModel.get('fromPlayerModels').forEach(item => {
+			trade += `${item.get('player.name')} ${item.get('player.team')}\n`;
+		});
+
+		tradeModel.get('fromPickModels').forEach(item => {
+			trade += `Round ${item.get('roundNumber')}, Pick ${item.get('pickNumber')}\n`;
+		});
+
+		let receive = '';
+		tradeModel.get('toPlayerModels').forEach(item => {
+			receive += `${item.get('player.name')} ${item.get('player.team')}\n`;
+		});
+
+		tradeModel.get('fromPickModels').forEach(item => {
+			receive += `Round ${item.get('roundNumber')}, Pick ${item.get('pickNumber')}\n`;
+		});
+
+		return notifySlack(`#trade-${type}`, {
+			fallback: `A trade has been ${type}`,
+			pretext: `@${receivingTeam} ${type} a trade from @${tradingTeam}`,
+			color: "good",
+			fields: [
+				{title: 'Trade', value: trade, short: false},
+				{title: 'For', value: receive, short: false}
+			]
+		});
+	},
 
   actions: {
     acceptTrade(trade) {
@@ -210,7 +246,9 @@ export default Ember.Component.extend({
         if (Ember.isNone(tr.get('rejectedOn')) && Ember.isNone(tr.get('acceptedOn'))) {
           trade.set('rejectedOn', moment().unix());
           trade.save().then(() => {
-            window.location = '/';
+						this.slack('rejected', trade).then(() => {
+							window.location = '/';
+						});
           });
         } else {
           window.location = '/';
