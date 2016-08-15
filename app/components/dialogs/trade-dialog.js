@@ -38,13 +38,8 @@ export default Ember.Component.extend({
 			const myTeam = teams.findBy('ownerId', this.get('session.session.authenticated.id'));
 			this.loadRoster(myTeam);
 			this.set('model', myTeam);
-			this.set('teams', []);
-			teams.forEach((team) => {
-				if (team.id !== myTeam.id) {
-					this.get('teams').pushObject(team);
-				}
-			});
-			// this.set('teams', teams);
+
+			this.set('teams', teams);
 		});
 	},
 

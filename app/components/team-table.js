@@ -27,11 +27,13 @@ export default Ember.Component.extend({
 	},
 
 	runTimer() {
-		this.set('time', moment().unix());
+		if(this.get('_state') !== 'destroying') {
+			this.set('time', moment().unix());
 
-		setTimeout(() => {
-			this.runTimer();
-		}, 1000);
+			setTimeout(() => {
+				this.runTimer();
+			}, 1000);
+		}
 	},
 
 	now: Ember.computed('time', function() {
