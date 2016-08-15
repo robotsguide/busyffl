@@ -6,6 +6,7 @@ export default function notifySlack(channel, text) {
 	const data = {
 		channel: channel,
 		username: "busyffl.com",
+		link_names: 1,
 		attachments: [text]
 	};
 
