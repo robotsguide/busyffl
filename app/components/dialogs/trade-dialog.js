@@ -34,7 +34,7 @@ export default Ember.Component.extend({
   loadTeams() {
     this.get('store').findAll('team').then(teams => {
       const myTeam = teams.findBy('ownerId', this.get('session.session.authenticated.id'));
-      teams.removeObject(myTeam);
+      myTeam.set('isOwner', true);
 
       this.set('teams', teams);
     });

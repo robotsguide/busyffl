@@ -78,7 +78,9 @@
       <header>Choose a team to trade with...</header>
       <div class="teams">
         {{#each teams as |team|}}
-          <span {{action 'pickTeam' team}}>{{team.franchiseName}}</span>
+          {{#unless team.isOwner}}
+            <span {{action 'pickTeam' team}}>{{team.franchiseName}}</span>
+          {{/unless}}
         {{/each}}
       </div>
       <footer>
