@@ -12,6 +12,7 @@ export default Ember.Controller.extend({
     const firstName = Ember.$('.v-settings .first-name').val().trim();
     const lastName = Ember.$('.v-settings .last-name').val().trim();
     const teamName = Ember.$('.v-settings .team-name').val().trim();
+    const slackName = Ember.$('.v-settings .slack-name').val().trim();
     const password = Ember.$('.v-settings .password').val().trim();
     const repass = Ember.$('.v-settings .retype-pass').val().trim();
 
@@ -29,6 +30,10 @@ export default Ember.Controller.extend({
 
     if (!Ember.isEmpty(teamName) && teamName !== this.get('model.team.name')) {
       this.set('model.team.name', teamName);
+    }
+
+    if (!Ember.isEmpty(slackName) && slackName !== this.get('model.team.slack')) {
+      this.set('model.team.slack', slackName);
     }
 
     if (!Ember.isEmpty(password)) {

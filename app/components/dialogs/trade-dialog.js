@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import setRoster from 'busyffl/utils/set-roster';
+import notifySlack from 'busyffl/utils/notify-slack';
 import moment from 'moment';
 
 export default Ember.Component.extend({
@@ -78,6 +79,18 @@ export default Ember.Component.extend({
     });
   },
 
+	slack(tradingTeam, trading, receivingTeam, receiving) {
+		return notifySlack('#trade-requests', {
+			fallback: "A new trade request has been submitted",
+			pretext: `Trade Request for @${receivingTeam} from @${tradingTeam}`,
+			color: "good",
+			fields: [
+				{title: 'Trade', value: trading, short: false},
+				{title: 'For', value: receiving, short: false}
+			]
+		});
+	},
+
   actions: {
     submitTrade() {
       const fromPlayer = [];
@@ -85,10 +98,31 @@ export default Ember.Component.extend({
       const fromPick = [];
       const toPick = [];
 
-      this.get('tradeOwnedPlayers').forEach(item => fromPlayer.push(item.get('playerId')));
-      this.get('tradePlayers').forEach(item => toPlayer.push(item.get('playerId')));
-      this.get('tradeOwnedPicks').forEach(item => fromPick.push(item.id));
-      this.get('tradePicks').forEach(item => toPick.push(item.id));
+			const tradingTeam = this.get('model.slackName');
+			const receivingTeam = this.get('selectedTeam.slackName');
+			let trading = '';
+
+      this.get('tradeOwnedPlayers').forEach(item => {
+				fromPlayer.push(item.get('playerId'));
+				trading += `${item.get('player.name')} ${item.get('player.team')}\n`;
+			});
+
+			this.get('tradeOwnedPicks').forEach(item => {
+				fromPick.push(item.id);
+				trading += `Round ${item.get('roundNumber')}, Pick ${item.get('pickNumber')}\n`;
+			});
+
+			let receiving = '';
+
+			this.get('tradePlayers').forEach(item => {
+				toPlayer.push(item.get('playerId'));
+				receiving += `${item.get('player.name')} ${item.get('player.team')}\n`;
+			});
+
+      this.get('tradePicks').forEach(item => {
+				toPick.push(item.id);
+				receiving += `Round ${item.get('roundNumber')}, Pick ${item.get('pickNumber')}\n`;
+			});
 
       const trade = this.get('store').createRecord('trade-request', {
         fromTeamId: this.get('model.id'),
@@ -100,7 +134,9 @@ export default Ember.Component.extend({
         submittedOn: moment().unix()
       });
 
-      trade.save().then(() => window.location = "/").catch((err) => this.showError(err));
+      trade.save().then(() => {
+				this.slack(tradingTeam, trading, receivingTeam, receiving).then(() => window.location = "/");
+			}).catch((err) => this.showError(err));
     },
 
     closeTrade() {

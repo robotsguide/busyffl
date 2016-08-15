@@ -5,6 +5,7 @@ import { Model } from 'ember-pouch';
 export default Model.extend({
   name: DS.attr('string'),
   ownerId: DS.attr('string'),
+	slack: DS.attr('string'),
 
   draftPicks: null,
   teamRosters: null,
@@ -31,5 +32,13 @@ export default Model.extend({
 
   franchiseName: Ember.computed('name', function() {
     return this.get('name').toUpperCase();
-  })
+  }),
+
+	slackName: Ember.computed('slack', 'name', function() {
+		if(!Ember.isEmpty(this.get('slack'))) {
+			return this.get('slack');
+		} else {
+			return this.get('name');
+		}
+	})
 });

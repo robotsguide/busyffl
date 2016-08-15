@@ -21,6 +21,7 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('bower_components/pouchdb-authentication/dist/pouchdb.authentication.js');
+  app.import('bower_components/slack-notifier/slack-notifier.js');
 
   return app.toTree();
 };
