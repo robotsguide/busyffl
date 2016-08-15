@@ -1,6 +1,6 @@
 
 {{#each model.teamRosters as |roster|}}
-  <div {{action 'selectPlayer' roster}} class="row{{if selection '' ' no-select'}}{{if roster.selected ' selected'}}{{if roster.player '' ' disable'}}">
-    <label>{{roster.positionSymbol}}</label><span>{{if roster.player roster.playerName 'Empty'}}</span>
-  </div>
+	<div {{action 'selectPlayer' roster}} class="row{{if selection '' ' no-select'}}{{if roster.selected ' selected'}}{{if roster.player '' ' disable'}}">
+		<label>{{roster.positionSymbol}}</label><span>{{if roster.player roster.playerName 'Empty'}} {{roster.player.priceTag}}</span>
+	</div>
 {{/each}}
