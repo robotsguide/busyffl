@@ -1,13 +1,13 @@
 
 <div class="v-index">
-  <div>
-    <div class="trades">
-      {{#each model.trades as |trade|}}
-        {{trade-request model=trade}}
-      {{/each}}
-    </div>
+	<div>
+		<div class="trades">
+			{{#each model.trades as |trade|}}
+				{{trade-request model=trade}}
+			{{/each}}
+		</div>
 
-    {{team-table model=model.member owner=true}}
-  </div>
+		{{team-table model=model.member owner=true currentTeam=model.member.team}}
+	</div>
 </div>
 

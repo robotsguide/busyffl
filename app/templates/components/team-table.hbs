@@ -63,7 +63,7 @@
 </div>
 
 {{#if showTradeDialog}}
-	{{dialogs.trade-dialog onClose="cancelTrade" selectedTeam=(if isTradeableTeam model.team) isTeamPageTrade=isTradeableTeam}}
+	{{dialogs.trade-dialog onClose="cancelTrade" model=currentTeam selectedTeam=(if isTradeableTeam model.team) isTeamPageTrade=isTradeableTeam}}
 {{/if}}
 
 {{#if showDropDialog}}
